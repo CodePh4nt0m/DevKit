@@ -11,6 +11,7 @@ using DevKit.Business;
 using DevKit.Common;
 using DevKit.Model;
 using DevKit.UI.Helpers;
+using SideBySideTextBox;
 
 namespace DevKit.UI
 {
@@ -243,6 +244,10 @@ namespace DevKit.UI
             {
                 if (e.ColumnIndex == 4)
                     GenerateScript(e.RowIndex);
+                else if (e.ColumnIndex == 7)
+                {
+                    CompareScript(e.RowIndex);
+                }
             }
             catch (Exception ex)
             {
@@ -272,6 +277,24 @@ namespace DevKit.UI
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        void CompareScript(int rowindex)
+        {
+            string spname = dgvSP.Rows[rowindex].Cells[3].Value.ToString();
+            StoredProcedureBusiness spdata = new StoredProcedureBusiness();
+            int sourceid = Convert.ToInt32(dgvSP.Rows[rowindex].Cells[5].Value);
+            int toid = Convert.ToInt32(dgvSP.Rows[rowindex].Cells[6].Value);
+
+            var serverlist = new EntityBusiness().GetServerList();
+            var serversource = serverlist.Where(x => x.ServerID == sourceid).First();
+            var serverto = serverlist.Where(x => x.ServerID == toid).First();
+
+            string leftquery = new StoredProcedureBusiness().GetScript(serversource, spname);
+            string rightquery = new StoredProcedureBusiness().GetScript(serverto, spname);
+
+            frmCompare frm = new frmCompare(leftquery,rightquery);
+            frm.Show();
         }
     }
 }

@@ -30,16 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTFS));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnClear = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbSP = new System.Windows.Forms.CheckBox();
             this.cbVersion = new System.Windows.Forms.CheckBox();
-            this.btnUndo = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnCheckIn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtComment = new System.Windows.Forms.TextBox();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
+            this.btnLog = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnUndo = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCheckIn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,6 +57,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnLog);
             this.splitContainer1.Panel1.Controls.Add(this.btnClear);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
@@ -69,19 +71,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(591, 382);
             this.splitContainer1.SplitterDistance = 201;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // btnClear
-            // 
-            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnClear.Image = global::DevKit.UI.Properties.Resources.Clearwindowcontent_6304;
-            this.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClear.Location = new System.Drawing.Point(5, 176);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(28, 23);
-            this.btnClear.TabIndex = 4;
-            this.btnClear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // groupBox1
             // 
@@ -115,6 +104,63 @@
             this.cbVersion.TabIndex = 0;
             this.cbVersion.Text = "Update Version Script";
             this.cbVersion.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Comment";
+            // 
+            // txtComment
+            // 
+            this.txtComment.Location = new System.Drawing.Point(12, 84);
+            this.txtComment.Multiline = true;
+            this.txtComment.Name = "txtComment";
+            this.txtComment.Size = new System.Drawing.Size(319, 70);
+            this.txtComment.TabIndex = 0;
+            // 
+            // txtConsole
+            // 
+            this.txtConsole.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtConsole.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConsole.ForeColor = System.Drawing.Color.White;
+            this.txtConsole.Location = new System.Drawing.Point(0, 0);
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.Size = new System.Drawing.Size(591, 177);
+            this.txtConsole.TabIndex = 0;
+            this.txtConsole.Text = "";
+            // 
+            // btnLog
+            // 
+            this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLog.Image = global::DevKit.UI.Properties.Resources.Constant_Shortcut_7229;
+            this.btnLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLog.Location = new System.Drawing.Point(36, 176);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(28, 23);
+            this.btnLog.TabIndex = 6;
+            this.btnLog.Text = "Log";
+            this.btnLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLog.UseVisualStyleBackColor = true;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnClear.Image = global::DevKit.UI.Properties.Resources.Clearwindowcontent_6304;
+            this.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClear.Location = new System.Drawing.Point(5, 176);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(28, 23);
+            this.btnClear.TabIndex = 4;
+            this.btnClear.Text = "Clear Console";
+            this.btnClear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnUndo
             // 
@@ -151,35 +197,6 @@
             this.btnCheckIn.UseVisualStyleBackColor = true;
             this.btnCheckIn.Click += new System.EventHandler(this.btnCheckIn_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 65);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Comment";
-            // 
-            // txtComment
-            // 
-            this.txtComment.Location = new System.Drawing.Point(12, 84);
-            this.txtComment.Multiline = true;
-            this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(319, 70);
-            this.txtComment.TabIndex = 0;
-            // 
-            // txtConsole
-            // 
-            this.txtConsole.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtConsole.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtConsole.ForeColor = System.Drawing.Color.White;
-            this.txtConsole.Location = new System.Drawing.Point(0, 0);
-            this.txtConsole.Name = "txtConsole";
-            this.txtConsole.Size = new System.Drawing.Size(591, 177);
-            this.txtConsole.TabIndex = 0;
-            this.txtConsole.Text = "";
-            // 
             // frmTFS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,5 +232,6 @@
         private System.Windows.Forms.CheckBox cbVersion;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.RichTextBox txtConsole;
+        private System.Windows.Forms.Button btnLog;
     }
 }

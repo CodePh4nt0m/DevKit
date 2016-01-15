@@ -115,6 +115,12 @@
     <Compile Include="frmTFS.Designer.cs">
       <DependentUpon>frmTFS.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTFSLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTFSLog.Designer.cs">
+      <DependentUpon>frmTFSLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CommandHelper.cs" />
     <Compile Include="Helpers\ScriptHelper.cs" />
     <Compile Include="Helpers\TFSHelper.cs" />
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTFS.resx">
       <DependentUpon>frmTFS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTFSLog.resx">
+      <DependentUpon>frmTFSLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -197,6 +206,10 @@
       <Project>{3e58b210-7088-4376-85f7-67e65fe00bf5}</Project>
       <Name>DevKit.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SideBySideTextBox\SideBySideTextBox.csproj">
+      <Project>{0f61db54-bdfb-406d-b476-4ba1c9b8681b}</Project>
+      <Name>SideBySideTextBox</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CheckIn_13188_32x.png" />
@@ -218,6 +231,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Clearallrequests_8816.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Constant-Shortcut_7229.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

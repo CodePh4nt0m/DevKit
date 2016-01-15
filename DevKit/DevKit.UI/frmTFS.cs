@@ -19,6 +19,7 @@ namespace DevKit.UI
     public partial class frmTFS : Form
     {
         private List<CheckInModel> StoredProcedures = null;
+        private List<LogText> OpResult = null;
         private DateTime ScriptDate = DateTime.Now;
         ConfigurationHelper config = new ConfigurationHelper();
 
@@ -43,19 +44,6 @@ namespace DevKit.UI
         {
             try
             {
-                //CommandHelper cmd = new CommandHelper();
-                //var res = cmd.ExecuteCommand(txtComment.Text);
-                //if(res != null)
-                //{
-                //    if (res.IsError)
-                //    {
-                //        AddConsoleText(res.Error, res.IsError);
-                //    }
-                //    else
-                //    {
-                //        AddConsoleText(res.Output, res.IsError);
-                //    }
-                //}
                 CheckInScripts();
             }
             catch (Exception ex)
@@ -132,177 +120,221 @@ namespace DevKit.UI
         {
             List<CheckInModel> errorlist = new List<CheckInModel>();
             List<CheckInModel> successlist = new List<CheckInModel>();
-
+            OpResult = new List<LogText>();
+            bool vsucess = true;
             successlist = StoredProcedures;
 
             var bVersion = cbVersion.Checked;
             var bSingle = cbSP.Checked;
 
-            if (_username.Length > 0 && _password.Length > 0)
+            try
             {
-                TFSAuthModel auth = new TFSAuthModel() { Username = _username, Password = _password };
-
-                if (StoredProcedures.Count > 0)
+                if (_username.Length > 0 && _password.Length > 0)
                 {
-                    if (bVersion || bSingle)
+                    TFSAuthModel auth = new TFSAuthModel() { Username = _username, Password = _password };
+
+                    if (successlist.Count > 0)
                     {
-                        // get latest project files
-                        if (bVersion)
+                        if (bVersion || bSingle)
                         {
-                            var res = TFSHelper.GetLatest(_path_version_tfs, auth);
-                            AddConsoleText(res);
-                            if (res.IsError)
+                            // get latest project files
+                            if (bVersion)
                             {
-                                
-                                MessageBox.Show("Error occured while updating version scripts", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                        }
-
-                        if (bSingle)
-                        {
-                            var res = TFSHelper.GetLatest(_path_sp_tfs, auth);
-                            AddConsoleText(res);
-                            if (res.IsError)
-                            {
-                                
-                                MessageBox.Show("Error occured while updating Stored Procedures", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                var res = TFSHelper.GetLatest(_path_version_tfs, auth);
+                                AddConsoleText(res);
+                                if (res.IsError)
+                                {
+                                    OpResult.Add(new LogText()
+                                    {
+                                        IsError = true,
+                                        Output = "Operation failed - Error occured while updating version scripts."
+                                    });
+                                    vsucess = false;
+                                    MessageBox.Show("Error occured while updating version scripts", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
                             }
 
-                        }
-
-                        AddManualConsoleTest("Getting latest scripts successful....");
-
-                        // end getting latest
-
-                        //create files if not exists - version
-                        bool vcreated = false;
-                        if (bVersion)
-                        {
-                            string path = _path_version_local + "\\" + FileHelper.GenerateDateFile(ScriptDate);
-                            if (!File.Exists(path))
+                            if (bSingle)
                             {
-                                FileHelper.CreateFile(path);
-                                vcreated = true;
+                                var res = TFSHelper.GetLatest(_path_sp_tfs, auth);
+                                AddConsoleText(res);
+                                if (res.IsError)
+                                {
+                                    OpResult.Add(new LogText()
+                                    {
+                                        IsError = true,
+                                        Output = "Operation failed - Error occured while updating Stored Procedures."
+                                    });
+                                    MessageBox.Show("Error occured while updating Stored Procedures", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
                             }
-                        }
 
-                        //create files if not exists - single
-                        if (bSingle)
-                        {
-                            foreach (var sp in StoredProcedures)
+
+
+                            AddManualConsoleTest("Getting latest scripts successful....");
+
+                            // end getting latest
+
+                            //create files if not exists - version
+                            bool vcreated = false;
+                            if (bVersion)
                             {
-                                string path = _path_sp_local + "\\" + sp.Name + ".sql";
+                                string path = _path_version_local + "\\" + FileHelper.GenerateDateFile(ScriptDate);
                                 if (!File.Exists(path))
                                 {
                                     FileHelper.CreateFile(path);
-                                    sp.fCreated = true;
+                                    vcreated = true;
                                 }
                             }
-                        }
 
-                        //checkout files for edit
-                        if (bVersion)
-                        {
-                            if (!vcreated)
+                            //create files if not exists - single
+                            if (bSingle)
                             {
-                                string path = _path_version_tfs + "\\" + FileHelper.GenerateDateFile(ScriptDate);
-                                var res = TFSHelper.Checkout(path, auth);
-                                AddConsoleText(res);
-                            }
-                        }
-
-                        if (bSingle)
-                        {
-                            foreach (var sp in StoredProcedures)
-                            {
-                                string path = _path_sp_tfs + "\\" + sp.Name + ".sql";
-                                if (!sp.fCreated)
+                                foreach (var sp in successlist)
                                 {
+                                    string path = _path_sp_local + "\\" + sp.Name + ".sql";
+                                    if (!File.Exists(path))
+                                    {
+                                        FileHelper.CreateFile(path);
+                                        sp.fCreated = true;
+                                    }
+                                }
+                            }
+
+                            //checkout files for edit
+                            if (bVersion)
+                            {
+                                if (!vcreated)
+                                {
+                                    string path = _path_version_tfs + "\\" + FileHelper.GenerateDateFile(ScriptDate);
                                     var res = TFSHelper.Checkout(path, auth);
                                     AddConsoleText(res);
-                                    if(res.IsError)
-                                        errorlist.Add(sp);
+                                    if (res != null && res.IsError)
+                                    {
+                                        OpResult.Add(new LogText()
+                                        {
+                                            IsError = true,
+                                            Output = "Version Script(" + FileHelper.GenerateDateFile(ScriptDate) + ") - Failed."
+                                        });
+                                        vsucess = false;
+                                    }
+                                        
                                 }
                             }
-                        }
 
-
-                        //add new files to tfs
-                        //version script
-                        if(bVersion)
-                        {
-                            if (vcreated)
+                            if (bSingle)
                             {
-                                var res = TFSHelper.AddFile(_path_version_local, FileHelper.GenerateDateFile(ScriptDate), auth);
-                                AddConsoleText(res);
-                            }
-                        }
-
-                        if (bSingle)
-                        {
-                            foreach (var sp in StoredProcedures)
-                            {
-                                string name = sp.Name + ".sql";
-                                if (sp.fCreated)
+                                foreach (var sp in successlist)
                                 {
-                                    var res = TFSHelper.AddFile(_path_sp_local,name, auth);
+                                    string path = _path_sp_tfs + "\\" + sp.Name + ".sql";
+                                    if (!sp.fCreated)
+                                    {
+                                        var res = TFSHelper.Checkout(path, auth);
+                                        AddConsoleText(res);
+                                        if (res.IsError)
+                                        {
+                                            sp.IsError = true;
+                                            errorlist.Add(sp);
+                                        }
+
+                                    }
+                                }
+
+                                foreach (var ersp in errorlist)
+                                {
+                                    var sp = successlist.Where(x => x.ID == ersp.ID).SingleOrDefault();
+                                    if (sp != null)
+                                        successlist.Remove(sp);
+                                }
+                            }
+
+
+                            //add new files to tfs
+                            //version script
+                            if (bVersion)
+                            {
+                                if (vcreated)
+                                {
+                                    var res = TFSHelper.AddFile(_path_version_local, FileHelper.GenerateDateFile(ScriptDate), auth);
                                     AddConsoleText(res);
                                 }
                             }
-                        }
-                        
 
-                        //update scripts text
-                        if (bVersion)
-                        {
-                            if (vcreated)
+                            if (bSingle)
                             {
-                                string path = _path_version_local + "\\" + FileHelper.GenerateDateFile(ScriptDate);
-                                FileHelper.UpdateFileText(path,new ScriptHelper().GenerateVersionScript(successlist.Select(x=> x.Name).ToList()));
-                            }
-                            else
-                            {
-                                string path = _path_version_local + "\\" + FileHelper.GenerateDateFile(ScriptDate);
-                                string vscript = FileHelper.ReadFile(path);
-                                StoredProcedureBusiness spData = new StoredProcedureBusiness();
-                                foreach (var s in successlist)
+                                foreach (var sp in successlist)
                                 {
-                                    string script = new ScriptHelper().GenerateIndividualScript(s.Name, spData.GetScript(null, s.Name).Trim(),true);
-                                    vscript = ReplaceScript(vscript,script,s.Name);
+                                    string name = sp.Name + ".sql";
+                                    if (sp.fCreated)
+                                    {
+                                        var res = TFSHelper.AddFile(_path_sp_local, name, auth);
+                                        AddConsoleText(res);
+                                    }
                                 }
-                                FileHelper.UpdateFileText(path,vscript);
                             }
-                        }
 
-                        //update single scripts
-                        if (bSingle)
-                        {
-                            StoredProcedureBusiness spData = new StoredProcedureBusiness();
-                            foreach (var sp in StoredProcedures)
+
+                            //update scripts text
+                            if (bVersion)
                             {
-                                string script = new ScriptHelper().GenerateIndividualScript(sp.Name, spData.GetScript(null, sp.Name).Trim(), false);
-                                string path = _path_sp_local + "\\" + sp.Name + ".sql";
-                                FileHelper.UpdateFileText(path, script);
+                                if (vcreated)
+                                {
+                                    string path = _path_version_local + "\\" + FileHelper.GenerateDateFile(ScriptDate);
+                                    FileHelper.UpdateFileText(path, new ScriptHelper().GenerateVersionScript(successlist.Select(x => x.Name).ToList()));
+                                }
+                                else
+                                {
+                                    string path = _path_version_local + "\\" + FileHelper.GenerateDateFile(ScriptDate);
+                                    string vscript = FileHelper.ReadFile(path);
+                                    StoredProcedureBusiness spData = new StoredProcedureBusiness();
+                                    foreach (var s in successlist)
+                                    {
+                                        string script = new ScriptHelper().GenerateIndividualScript(s.Name, spData.GetScript(null, s.Name).Trim(), true);
+                                        vscript = ReplaceScript(vscript, script, s.Name);
+                                    }
+                                    FileHelper.UpdateFileText(path, vscript);
+                                }
                             }
+
+                            //update single scripts
+                            if (bSingle)
+                            {
+                                StoredProcedureBusiness spData = new StoredProcedureBusiness();
+                                foreach (var sp in successlist)
+                                {
+                                    string script = new ScriptHelper().GenerateIndividualScript(sp.Name, spData.GetScript(null, sp.Name).Trim(), false);
+                                    string path = _path_sp_local + "\\" + sp.Name + ".sql";
+                                    FileHelper.UpdateFileText(path, script);
+                                }
+                            }
+
+
+                            //checkin pending changes
+                            string comment = "";
+                            if (txtComment.Text.Trim().Length > 0)
+                                comment = txtComment.Text.Trim();
+                            else
+                                comment = "Script Changes";
+                            var checkinres = TFSHelper.CheckIn(comment, auth);
+                            AddConsoleText(checkinres);
+                            AddManualConsoleTest("Operation completed successfuly");
+                            
+
                         }
-
-
-                        //checkin pending changes
-                        string comment = "";
-                        if (txtComment.Text.Trim().Length > 0)
-                            comment = txtComment.Text.Trim();
-                        else
-                            comment = "Script Changes";
-                        var checkinres = TFSHelper.CheckIn(comment, auth);
-                        AddConsoleText(checkinres);
-                        AddManualConsoleTest("Operation completed successfuly");
-
                     }
                 }
             }
-            
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                GenerateLog(successlist, errorlist, vsucess, bVersion);
+            }
         }
 
         string ReplaceScript(string original, string script, string name)
@@ -314,7 +346,6 @@ namespace DevKit.UI
             int querylength = original.Length;
 
             string sub = original.Substring(indexend + 20 + name.Length);
-            //int nextcharindex = Regex.Match(sub, @"\S").Index;
             string retstr = original;
             if (indexstart != -1 && indexend != -1)
             {
@@ -328,6 +359,36 @@ namespace DevKit.UI
             }
             retstr += script;
             return retstr;
+        }
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            frmTFSLog frm = new frmTFSLog(OpResult);
+            frm.ShowDialog();
+        }
+
+        private void GenerateLog(List<CheckInModel> successlst, List<CheckInModel> errorlst,bool vsuccess,bool bversion)
+        {
+            if(vsuccess && bversion)
+                OpResult.Add(new LogText()
+                {
+                    IsError = false,
+                    Output = "Version Script(" + FileHelper.GenerateDateFile(ScriptDate) + ") - Successful."
+                });
+
+            var allres = new List<CheckInModel>();
+            allres.AddRange(successlst);
+            allres.AddRange(errorlst);
+
+            allres = allres.AsEnumerable().OrderBy(x => x.Name.ToLower()).ToList();
+            foreach (var res in allres)
+            {
+                OpResult.Add(new LogText()
+                {
+                    IsError = res.IsError,
+                    Output = res.Name + " - " + (res.IsError ? "Failed." : "Successful.")
+                });
+            }
         }
     }
 }

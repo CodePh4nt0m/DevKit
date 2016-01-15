@@ -82,7 +82,6 @@ namespace DevKit.UI
         {
             StoredProcedureBusiness spdata = new StoredProcedureBusiness();
             var res = spdata.ExecuteQuery(server == null ? AppTimeConfiguration.MainServer : server, query);
-            MessageBox.Show(res.ToString());
         }
 
         private void frmQueryWindow_Load(object sender, EventArgs e)

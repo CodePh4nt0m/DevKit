@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevKit.UI", "DevKit.UI\DevKit.UI.csproj", "{7475D05E-2A84-4C05-9E22-04505B1360D6}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevKit.Business", "DevKit.Business\DevKit.Business.csproj", "{F2946D30-B040-4DCA-8D9F-FEE90324E055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevKit.Common", "DevKit.Common\DevKit.Common.csproj", "{EF7D77E7-5059-458A-9078-326737A4ACD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SideBySideTextBox", "SideBySideTextBox\SideBySideTextBox.csproj", "{0F61DB54-BDFB-406D-B476-4BA1C9B8681B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EF7D77E7-5059-458A-9078-326737A4ACD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF7D77E7-5059-458A-9078-326737A4ACD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF7D77E7-5059-458A-9078-326737A4ACD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F61DB54-BDFB-406D-B476-4BA1C9B8681B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F61DB54-BDFB-406D-B476-4BA1C9B8681B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F61DB54-BDFB-406D-B476-4BA1C9B8681B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F61DB54-BDFB-406D-B476-4BA1C9B8681B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
