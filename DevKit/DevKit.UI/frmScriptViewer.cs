@@ -19,7 +19,7 @@ namespace DevKit.UI
         private List<ServerModel> _envlist = null;
         private StoredProcedureBusiness spdata = null;
         private bool _edit = false;
-
+        private string _scriptname = "";
         public bool Edit
         {
             get { return _edit; }
@@ -29,11 +29,12 @@ namespace DevKit.UI
                 ChangeMode();
             }
         }
-        public frmScriptViewer(string script)
+        public frmScriptViewer(string script,string filename = "")
         {
             InitializeComponent();
             _script = script;
             _envlist = new List<ServerModel>();
+            _scriptname = filename;
         }
 
         private void ChangeMode()
@@ -129,6 +130,27 @@ namespace DevKit.UI
         private void tsbtnEdit_Click(object sender, EventArgs e)
         {
             Edit = !Edit;
+        }
+
+        private void tsbtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                savefileDiag.DefaultExt = "sql";
+                if (_scriptname.Trim().Length > 0)
+                    savefileDiag.FileName = _scriptname;
+                DialogResult res = savefileDiag.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    string path = savefileDiag.FileName;
+                    string query = txtQuery.Text;
+                    FileHelper.UpdateFileText(path, query);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

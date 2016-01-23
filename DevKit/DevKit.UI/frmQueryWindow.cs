@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,12 +12,16 @@ using System.Windows.Forms;
 using DevKit.Business;
 using DevKit.Common;
 using DevKit.Model;
+using FastColoredTextBoxNS;
 
 namespace DevKit.UI
 {
     public partial class frmQueryWindow : Form
     {
         private List<ServerModel> _envlist = null;
+        FastColoredTextBoxNS.Style greenStyle = new TextStyle(Brushes.Green, null, FontStyle.Regular);
+        FastColoredTextBoxNS.Style redsStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
+        FastColoredTextBoxNS.Style blueStyle = new TextStyle(Brushes.DodgerBlue, null, FontStyle.Regular);
         public frmQueryWindow()
         {
             InitializeComponent();
@@ -73,7 +79,8 @@ namespace DevKit.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
+                LogMessages(ex);
             }
 
         }
@@ -123,6 +130,27 @@ namespace DevKit.UI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LogMessages(Exception er)
+        {
+            try
+            {
+                if (er.InnerException == null)
+                {
+                    MessageBox.Show(er.Message);
+                }
+                else
+                {
+                    var exp = er.InnerException as SqlException;
+                    MessageBox.Show(exp.Server + " : " + exp.Message, "Error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

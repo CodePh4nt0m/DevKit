@@ -75,11 +75,12 @@ namespace DevKit.Data
             try
             {
                 Server smoserver = new Server(new ServerConnection(ConnectionManager.Connection(server)));
-                return smoserver.ConnectionContext.ExecuteNonQuery(query);
+                var res = smoserver.ConnectionContext.ExecuteNonQuery(query);
+                return res;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw ex;
             }
             finally
             {

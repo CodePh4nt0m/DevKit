@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Dakirby309-Windows-8-Metro-Apps-Visual-Studio-Metro.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox">
       <HintPath>C:\References\FastColoredTextBox.dll</HintPath>
@@ -49,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBase.Designer.cs">
+      <DependentUpon>frmBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDaily.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +131,7 @@
       <DependentUpon>frmTFSLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CommandHelper.cs" />
+    <Compile Include="Helpers\IOHelper.cs" />
     <Compile Include="Helpers\ScriptHelper.cs" />
     <Compile Include="Helpers\TFSHelper.cs" />
     <Compile Include="Program.cs" />
@@ -234,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Constant-Shortcut_7229.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dakirby309-Windows-8-Metro-Apps-Visual-Studio-Metro.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

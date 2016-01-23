@@ -36,9 +36,9 @@
             this.tsbtnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnExeOn = new System.Windows.Forms.ToolStripSplitButton();
-            this.txtQuery = new FastColoredTextBoxNS.FastColoredTextBox();
             this.openfileDiag = new System.Windows.Forms.OpenFileDialog();
             this.savefileDiag = new System.Windows.Forms.SaveFileDialog();
+            this.txtQuery = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtQuery)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +56,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(903, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(913, 30);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnOpen
@@ -99,6 +99,10 @@
             this.tsbtnExeOn.Size = new System.Drawing.Size(79, 27);
             this.tsbtnExeOn.Text = "Execute";
             // 
+            // savefileDiag
+            // 
+            this.savefileDiag.DefaultExt = "sql";
+            // 
             // txtQuery
             // 
             this.txtQuery.AutoCompleteBracketsList = new char[] {
@@ -112,33 +116,33 @@
         '\"',
         '\'',
         '\''};
+            this.txtQuery.AutoIndentCharsPatterns = "";
             this.txtQuery.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.txtQuery.BackBrush = null;
             this.txtQuery.CharHeight = 14;
             this.txtQuery.CharWidth = 8;
+            this.txtQuery.CommentPrefix = "--";
             this.txtQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtQuery.IsReplaceMode = false;
             this.txtQuery.Language = FastColoredTextBoxNS.Language.SQL;
+            this.txtQuery.LeftBracket = '(';
             this.txtQuery.Location = new System.Drawing.Point(0, 30);
             this.txtQuery.Name = "txtQuery";
             this.txtQuery.Paddings = new System.Windows.Forms.Padding(0);
+            this.txtQuery.RightBracket = ')';
             this.txtQuery.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtQuery.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtQuery.ServiceColors")));
-            this.txtQuery.Size = new System.Drawing.Size(903, 506);
-            this.txtQuery.TabIndex = 1;
+            this.txtQuery.Size = new System.Drawing.Size(913, 547);
+            this.txtQuery.TabIndex = 3;
             this.txtQuery.Zoom = 100;
-            // 
-            // savefileDiag
-            // 
-            this.savefileDiag.DefaultExt = "sql";
             // 
             // frmQueryWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 536);
+            this.ClientSize = new System.Drawing.Size(913, 577);
             this.Controls.Add(this.txtQuery);
             this.Controls.Add(this.toolStrip1);
             this.Name = "frmQueryWindow";
@@ -161,8 +165,8 @@
         private System.Windows.Forms.ToolStripButton tsbtnOpen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private FastColoredTextBoxNS.FastColoredTextBox txtQuery;
         private System.Windows.Forms.OpenFileDialog openfileDiag;
         private System.Windows.Forms.SaveFileDialog savefileDiag;
+        private FastColoredTextBoxNS.FastColoredTextBox txtQuery;
     }
 }

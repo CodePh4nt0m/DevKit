@@ -32,11 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmScriptViewer));
             this.txtQuery = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsbtnExeOn = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tsbtnSave = new System.Windows.Forms.ToolStripButton();
             this.tsbtnEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnExeOn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnSave = new System.Windows.Forms.ToolStripButton();
+            this.savefileDiag = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.txtQuery)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +64,7 @@
             this.txtQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtQuery.IsReplaceMode = false;
             this.txtQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtQuery.LeftBracket = '(';
@@ -93,23 +95,6 @@
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // tsbtnExeOn
-            // 
-            this.tsbtnExeOn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtnExeOn.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnExeOn.Image")));
-            this.tsbtnExeOn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnExeOn.Name = "tsbtnExeOn";
-            this.tsbtnExeOn.Size = new System.Drawing.Size(79, 22);
-            this.tsbtnExeOn.Text = "Execute On";
-            // 
-            // tsbtnSave
-            // 
-            this.tsbtnSave.Image = global::DevKit.UI.Properties.Resources.Save_6530;
-            this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnSave.Name = "tsbtnSave";
-            this.tsbtnSave.Size = new System.Drawing.Size(51, 22);
-            this.tsbtnSave.Text = "Save";
-            // 
             // tsbtnEdit
             // 
             this.tsbtnEdit.BackColor = System.Drawing.SystemColors.Highlight;
@@ -122,15 +107,33 @@
             this.tsbtnEdit.Text = "Enable Edit";
             this.tsbtnEdit.Click += new System.EventHandler(this.tsbtnEdit_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbtnExeOn
+            // 
+            this.tsbtnExeOn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnExeOn.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnExeOn.Image")));
+            this.tsbtnExeOn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnExeOn.Name = "tsbtnExeOn";
+            this.tsbtnExeOn.Size = new System.Drawing.Size(79, 22);
+            this.tsbtnExeOn.Text = "Execute On";
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripSeparator2
+            // tsbtnSave
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.tsbtnSave.Image = global::DevKit.UI.Properties.Resources.Save_6530;
+            this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnSave.Name = "tsbtnSave";
+            this.tsbtnSave.Size = new System.Drawing.Size(51, 22);
+            this.tsbtnSave.Text = "Save";
+            this.tsbtnSave.Click += new System.EventHandler(this.tsbtnSave_Click);
             // 
             // frmScriptViewer
             // 
@@ -160,5 +163,6 @@
         private System.Windows.Forms.ToolStripButton tsbtnEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.SaveFileDialog savefileDiag;
     }
 }

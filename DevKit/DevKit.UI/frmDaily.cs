@@ -211,7 +211,8 @@ namespace DevKit.UI
                     splist.Add(rw.Cells[3].Value.ToString());
             }
             string version_script = spHelper.GenerateVersionScript(splist);
-            frmScriptViewer frm = new frmScriptViewer(version_script);
+            string filename = FileHelper.GenerateDateFile(dtpScriptDate.Value);
+            frmScriptViewer frm = new frmScriptViewer(version_script, filename);
             frm.Show();
         }
 
@@ -234,7 +235,7 @@ namespace DevKit.UI
             string spname = dgvSP.Rows[index].Cells[3].Value.ToString();
             StoredProcedureBusiness spdata = new StoredProcedureBusiness();
             string spbody = spdata.GetScript(null, spname);
-            frmScriptViewer frm = new frmScriptViewer(new ScriptHelper().GenerateIndividualScript(spname, spbody,false));
+            frmScriptViewer frm = new frmScriptViewer(new ScriptHelper().GenerateIndividualScript(spname, spbody,false), spname);
             frm.Show();
         }
 
@@ -295,6 +296,18 @@ namespace DevKit.UI
 
             frmCompare frm = new frmCompare(leftquery,rightquery);
             frm.Show();
+        }
+
+        private void btnIndividual_Click(object sender, EventArgs e)
+        {
+            List<string> splist = new List<string>();
+            foreach (DataGridViewRow rw in dgvSP.Rows)
+            {
+                if (Convert.ToBoolean(rw.Cells[2].Value))
+                    splist.Add(rw.Cells[3].Value.ToString());
+            }
+            IOHelper fh = new IOHelper();
+            fh.SaveSingleScript(splist);
         }
     }
 }

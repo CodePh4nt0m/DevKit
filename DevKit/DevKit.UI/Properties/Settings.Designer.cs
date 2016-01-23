@@ -94,5 +94,17 @@ namespace DevKit.UI.Properties {
                 this["tfs_password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string mainserver {
+            get {
+                return ((string)(this["mainserver"]));
+            }
+            set {
+                this["mainserver"] = value;
+            }
+        }
     }
 }

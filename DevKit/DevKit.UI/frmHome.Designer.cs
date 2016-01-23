@@ -47,7 +47,7 @@
             this.smbtnDatabases = new System.Windows.Forms.ToolStripButton();
             this.smbtnSQL = new System.Windows.Forms.ToolStripButton();
             this.smbtnConsole = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.smbtnFolder = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.mainToobar.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -148,7 +148,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(55, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(55, 27);
             this.toolStripLabel1.Text = "Database";
             // 
             // cmbDatabase
@@ -156,12 +156,11 @@
             this.cmbDatabase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDatabase.Name = "cmbDatabase";
             this.cmbDatabase.Size = new System.Drawing.Size(150, 30);
-            this.cmbDatabase.SelectedIndexChanged += new System.EventHandler(this.cmbDatabase_SelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
             // 
             // toolStrip2
             // 
@@ -172,7 +171,7 @@
             this.smbtnDatabases,
             this.smbtnSQL,
             this.smbtnConsole,
-            this.toolStripButton1});
+            this.smbtnFolder});
             this.toolStrip2.Location = new System.Drawing.Point(0, 54);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -215,16 +214,17 @@
             this.smbtnConsole.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.smbtnConsole.Click += new System.EventHandler(this.smbtnConsole_Click);
             // 
-            // toolStripButton1
+            // smbtnFolder
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(48, 39);
-            this.toolStripButton1.Text = "Console";
-            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.smbtnFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.smbtnFolder.Image = ((System.Drawing.Image)(resources.GetObject("smbtnFolder.Image")));
+            this.smbtnFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.smbtnFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.smbtnFolder.Name = "smbtnFolder";
+            this.smbtnFolder.Size = new System.Drawing.Size(48, 39);
+            this.smbtnFolder.Text = "Console";
+            this.smbtnFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.smbtnFolder.Click += new System.EventHandler(this.smbtnFolder_Click);
             // 
             // frmHome
             // 
@@ -235,6 +235,7 @@
             this.Controls.Add(this.mainToobar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmHome";
@@ -267,7 +268,7 @@
         private System.Windows.Forms.ToolStripButton smbtnConsole;
         private System.Windows.Forms.ToolStripButton smbtnDatabases;
         private System.Windows.Forms.ToolStripButton smbtnSQL;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton smbtnFolder;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox cmbDatabase;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,25 +28,67 @@ namespace DevKit.UI
 
         private void smbtnSQL_Click(object sender, EventArgs e)
         {
-            frmDaily frm = new frmDaily();
-            frm.Show();
+            bool exits = false;
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.GetType() == typeof(frmDaily))
+                {
+                    form.Activate();
+                    form.BringToFront();
+                    form.WindowState = FormWindowState.Normal;
+                    exits = true;
+                    break;
+                }
+            }
+
+            if (!exits)
+            {
+                frmDaily frm = new frmDaily();
+                frm.MdiParent = this;
+                frm.Show();
+            }
+            
         }
 
         private void smbtnDatabases_Click(object sender, EventArgs e)
         {
-            frmDatabases frm = new frmDatabases();
-            frm.MdiParent = this;
-            frm.Show();
+            bool exits = false;
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.GetType() == typeof(frmDatabases))
+                {
+                    form.Activate();
+                    form.BringToFront();
+                    form.WindowState = FormWindowState.Normal;
+                    exits = true;
+                    break;
+                }
+            }
+
+            if (!exits)
+            {
+                frmDatabases frm = new frmDatabases();
+                frm.MdiParent = this;
+                frm.Show();
+            }
         }
 
         public void LoadDatabases()
         {
+            cmbDatabase.SelectedIndexChanged -= cmbDatabase_SelectedIndexChanged;
+
             EntityBusiness entityBusiness = new EntityBusiness();
             var dbs = entityBusiness.GetServerList();
             cmbDatabase.ComboBox.DisplayMember = "Database";
             cmbDatabase.ComboBox.ValueMember = "ServerID";
             cmbDatabase.ComboBox.DataSource = dbs;
-            cmbDatabase.SelectedIndex = -1;
+            string mainserver = new ConfigurationHelper().GetConfigurationValue("mainserver");
+            if (mainserver != "0")
+                cmbDatabase.ComboBox.SelectedValue = Convert.ToInt32(mainserver);
+            else
+                cmbDatabase.ComboBox.SelectedIndex = -1;
+
+            cmbDatabase.SelectedIndexChanged += cmbDatabase_SelectedIndexChanged;
         }
 
         private void frmHome_Load(object sender, EventArgs e)
@@ -53,6 +96,14 @@ namespace DevKit.UI
             try
             {
                 LoadDatabases();
+                string serverid = new ConfigurationHelper().GetConfigurationValue("mainserver");
+                EntityBusiness data = new EntityBusiness();
+                var servers = data.GetServerList();
+                var server = servers.Where(x => x.ServerID == Convert.ToInt32(serverid)).FirstOrDefault();
+                if (server != null)
+                {
+                    AppTimeConfiguration.MainServer = server;
+                }
             }
             catch (Exception ex)
             {
@@ -72,6 +123,7 @@ namespace DevKit.UI
                         EntityBusiness data= new EntityBusiness();
                         var servers = data.GetServerList();
                         AppTimeConfiguration.MainServer = servers.Where(x => x.ServerID == id).FirstOrDefault();
+                        new ConfigurationHelper().AddConfiguration("mainserver",id.ToString());
                     }
                 }
                 
@@ -92,6 +144,12 @@ namespace DevKit.UI
         {
             frmSettings frm = new frmSettings();
             frm.ShowDialog();
+        }
+
+        private void smbtnFolder_Click(object sender, EventArgs e)
+        {
+            string path = Application.StartupPath + "\\GeneratedScripts";
+            Process.Start(path);
         }
     }
 }

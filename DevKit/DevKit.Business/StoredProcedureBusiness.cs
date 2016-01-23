@@ -44,7 +44,7 @@ namespace DevKit.Business
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw ex;
             }
         }
     }

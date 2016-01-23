@@ -199,7 +199,7 @@ namespace DevKit.Data
                 using (DevKitEntities db = new DevKitEntities())
                 {
                     var obj = db.StoredProcedures.Where(x => x.Id == id).FirstOrDefault();
-                    if(obj != null)
+                    if (obj != null)
                     {
                         db.StoredProcedures.Remove(obj);
                         db.SaveChanges();
