@@ -195,12 +195,6 @@ namespace DevKit.UI
             }
         }
 
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmImport frm = new frmImport(this);
-            frm.ShowDialog();
-        }
-
         private void GenerateVersionScript()
         {
             ScriptHelper spHelper = new ScriptHelper();
@@ -256,11 +250,6 @@ namespace DevKit.UI
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void tsbtnRemove_Click(object sender, EventArgs e)
         {
             try
@@ -308,6 +297,12 @@ namespace DevKit.UI
             }
             IOHelper fh = new IOHelper();
             fh.SaveSingleScript(splist);
+        }
+
+        private void tsbtnImport_Click(object sender, EventArgs e)
+        {
+            frmImport frm = new frmImport(this);
+            frm.ShowDialog();
         }
     }
 }

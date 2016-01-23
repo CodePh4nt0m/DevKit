@@ -47,7 +47,6 @@ namespace DevKit.UI
                 frm.MdiParent = this;
                 frm.Show();
             }
-            
         }
 
         private void smbtnDatabases_Click(object sender, EventArgs e)
