@@ -11,6 +11,7 @@ namespace DevKit.Business
     public class TableBusiness
     {
         private TableData tdata = new TableData();
+        private TableHelper thdata = new TableHelper();
         public List<TableModel> GetTableList(ServerModel server)
         {
             try
@@ -23,11 +24,23 @@ namespace DevKit.Business
             }
         }
 
-        public List<TableModel> SearchTable(ServerModel server,string tablename)
+        public List<TableModel> SearchTable(ServerModel server, string tablename)
         {
             try
             {
-                return tdata.SearchTable(server,tablename);
+                return tdata.SearchTable(server, tablename);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void GenerateTableSript(ServerModel server, ServerModel depserver, List<TableModel> tablelist)
+        {
+            try
+            {
+                thdata.GenerateTableSript(server,depserver,tablelist);
             }
             catch (Exception ex)
             {

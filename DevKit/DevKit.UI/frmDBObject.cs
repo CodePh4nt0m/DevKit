@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using DevKit.Business;
 using DevKit.Common;
 using DevKit.Model;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Smo.SqlEnum;
 
 namespace DevKit.UI
 {
@@ -22,6 +24,7 @@ namespace DevKit.UI
             InitializeComponent();
             dgvallTables.AutoGenerateColumns = false;
             dgvtblSelected.AutoGenerateColumns = false;
+            dgvDB.AutoGenerateColumns = false;
             selectedtables = new List<TableModel>();
             maindb = new ServerModel();
         }
@@ -124,10 +127,15 @@ namespace DevKit.UI
             {
                 tscomserver.ComboBox.SelectedValue = Convert.ToInt32(mainserver);
                 maindb = dbs.Where(x => x.ServerID == Convert.ToInt32(mainserver)).FirstOrDefault();
+                LoadOtherDBs(dbs, Convert.ToInt32(mainserver));
+            }
+
+            else
+            {
+                tscomserver.ComboBox.SelectedIndex = -1;
+                LoadOtherDBs(dbs, 0);
             }
                 
-            else
-                tscomserver.ComboBox.SelectedIndex = -1;
 
             tscomserver.SelectedIndexChanged += tscomserver_SelectedIndexChanged;
         }
@@ -145,6 +153,7 @@ namespace DevKit.UI
                         var servers = data.GetServerList();
                         maindb = servers.Where(x => x.ServerID == id).FirstOrDefault();
                         LoadTables();
+                        LoadOtherDBs(servers,id);
                     }
                 }
 
@@ -153,6 +162,65 @@ namespace DevKit.UI
             {
                 MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoadOtherDBs(List<ServerModel> dblist,int mainid)
+        {
+            if (mainid == 0)
+            {
+                dgvDB.DataSource = dblist;
+            }
+            else
+            {
+                dgvDB.DataSource = dblist.Where(x => x.ServerID != mainid).ToList();
+            }
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //GenerateScripts();
+                TableBusiness tdata = new TableBusiness();
+                //tdata.GenerateTableSript(AppTimeConfiguration.MainServer);
+                EntityBusiness data = new EntityBusiness();
+                var servers = data.GetServerList();
+                var tbllist = new List<TableModel>();
+                var compserver = servers.Where(x => x.ServerID == Convert.ToInt32(dgvDB.Rows[0].Cells[0].Value.ToString())).First();
+                foreach (DataGridViewRow rw in dgvtblSelected.Rows)
+                {
+                    tbllist.Add(new TableModel()
+                    {
+                        TableName = rw.Cells[2].Value.ToString()
+                    });
+                }
+
+                tdata.GenerateTableSript(AppTimeConfiguration.MainServer,compserver,tbllist);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void GenerateScripts()
+        {
+            EntityBusiness data = new EntityBusiness();
+            var servers = data.GetServerList();
+            var selectedservers = new List<ServerModel>();
+
+            int id = Convert.ToInt32(tscomserver.ComboBox.SelectedValue);
+            var mainserver = servers.Where(x => x.ServerID == id).First();
+
+            foreach (DataGridViewRow rw in dgvDB.Rows)
+            {
+                if (Convert.ToBoolean(rw.Cells[1].Value))
+                {
+                    selectedservers.Add(servers.Where(x=> x.ServerID == Convert.ToInt32(rw.Cells[0].Value)).First());
+                }
+            }
+
+
         }
     }
 }
