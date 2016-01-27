@@ -82,7 +82,8 @@ namespace DevKit.UI
             cmbDatabase.ComboBox.ValueMember = "ServerID";
             cmbDatabase.ComboBox.DataSource = dbs;
             string mainserver = new ConfigurationHelper().GetConfigurationValue("mainserver");
-            if (mainserver != "0")
+            //string mainserver = System.Configuration.ConfigurationSettings.AppSettings["mainserver"];
+            if (mainserver != "0" && mainserver != "")
                 cmbDatabase.ComboBox.SelectedValue = Convert.ToInt32(mainserver);
             else
                 cmbDatabase.ComboBox.SelectedIndex = -1;
@@ -149,6 +150,13 @@ namespace DevKit.UI
         {
             string path = Application.StartupPath + "\\GeneratedScripts";
             Process.Start(path);
+        }
+
+        private void smbtnObject_Click(object sender, EventArgs e)
+        {
+            frmDBObject frm = new frmDBObject();
+            frm.MdiParent = this;
+            frm.Show();
         }
     }
 }

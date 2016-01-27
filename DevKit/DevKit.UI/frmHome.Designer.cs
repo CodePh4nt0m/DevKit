@@ -48,6 +48,7 @@
             this.smbtnSQL = new System.Windows.Forms.ToolStripButton();
             this.smbtnConsole = new System.Windows.Forms.ToolStripButton();
             this.smbtnFolder = new System.Windows.Forms.ToolStripButton();
+            this.smbtnObject = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.mainToobar.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -171,7 +172,8 @@
             this.smbtnDatabases,
             this.smbtnSQL,
             this.smbtnConsole,
-            this.smbtnFolder});
+            this.smbtnFolder,
+            this.smbtnObject});
             this.toolStrip2.Location = new System.Drawing.Point(0, 54);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -226,6 +228,18 @@
             this.smbtnFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.smbtnFolder.Click += new System.EventHandler(this.smbtnFolder_Click);
             // 
+            // smbtnObject
+            // 
+            this.smbtnObject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.smbtnObject.Image = global::DevKit.UI.Properties.Resources.table;
+            this.smbtnObject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.smbtnObject.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.smbtnObject.Name = "smbtnObject";
+            this.smbtnObject.Size = new System.Drawing.Size(48, 39);
+            this.smbtnObject.Text = "Console";
+            this.smbtnObject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.smbtnObject.Click += new System.EventHandler(this.smbtnObject_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,7 +253,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmHome";
-            this.Text = "Dev Kit";
+            this.Text = "SQL Plus";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmHome_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -274,5 +288,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton smbtnObject;
     }
 }

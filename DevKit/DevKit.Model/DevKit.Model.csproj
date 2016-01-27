@@ -46,6 +46,7 @@
     <Compile Include="ServerModel.cs" />
     <Compile Include="ShellOutput.cs" />
     <Compile Include="SPModel.cs" />
+    <Compile Include="TableModel.cs" />
     <Compile Include="TFSAuthModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

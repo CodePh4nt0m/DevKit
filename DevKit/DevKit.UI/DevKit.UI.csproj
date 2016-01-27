@@ -70,6 +70,12 @@
     <Compile Include="frmDatabases.Designer.cs">
       <DependentUpon>frmDatabases.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDBObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDBObject.Designer.cs">
+      <DependentUpon>frmDBObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDatabases.resx">
       <DependentUpon>frmDatabases.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDBObject.resx">
+      <DependentUpon>frmDBObject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHome.resx">
       <DependentUpon>frmHome.cs</DependentUpon>
@@ -247,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dakirby309-Windows-8-Metro-Apps-Visual-Studio-Metro.ico" />
+    <None Include="Resources\table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
