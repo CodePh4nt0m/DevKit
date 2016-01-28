@@ -92,5 +92,58 @@ namespace DevKit.Data
                 ConnectionManager.Close();
             }
         }
+
+        public void GenereateAlterScripts(ServerModel server, ServerModel depserver, List<TableModel> tablelist)
+        {
+            Server srv = new Server();
+
+            srv.ConnectionContext.LoginSecure = false;
+            srv.ConnectionContext.Login = server.Username;
+            srv.ConnectionContext.Password = server.Password;
+            srv.ConnectionContext.ServerInstance = server.ServerName;
+
+            string dbName = server.Database;
+
+            Database db = new Database();
+            db = srv.Databases[dbName];
+
+            StringBuilder sb = new StringBuilder();
+
+            var modtables = new List<Table>();
+
+            foreach (var tbl in tablelist)
+            {
+                modtables.Add(db.Tables[tbl.TableName]);
+            }
+            List<Column> collist = new List<Column>();
+
+            foreach (Table tbl in modtables)
+            {
+                //ScriptingOptions options = new ScriptingOptions();
+                //options.ClusteredIndexes = true;
+                //options.Default = true;
+                //options.DriAll = true;
+                //options.Indexes = true;
+                //options.IncludeHeaders = true;
+
+                //StringCollection coll = tbl.Script(options);
+                //foreach (string str in coll)
+                //{
+                //    sb.Append(str);
+                //    sb.Append(Environment.NewLine);
+                //}
+                foreach (Column col in tbl.Columns)
+                {
+                    collist.Add(col);
+                }
+
+                tbl.Columns.Add(collist[0]);
+                tbl.Alter();
+            }
+
+            System.IO.StreamWriter fs = System.IO.File.CreateText("c:\\temp\\output.txt");
+            fs.Write(sb.ToString());
+            fs.Close();
+        }
     }
 }
