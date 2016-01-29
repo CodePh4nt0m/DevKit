@@ -118,7 +118,8 @@ namespace DevKit.Data
             {
                 using (DevKitEntities db = new DevKitEntities())
                 {
-                    bool exists = db.StoredProcedures.AsEnumerable().Any(x => x.SPName.ToLower() == sp.SPName.ToLower());
+                    bool exists = db.StoredProcedures.AsEnumerable().Any(x => x.SPName.ToLower() == sp.SPName.ToLower()
+                    && x.SPDate == sp.SPDate);
                     if (exists)
                     {
                         return -1;
