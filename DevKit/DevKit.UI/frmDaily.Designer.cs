@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDaily));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -47,17 +47,17 @@
             this.Column7 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnMoveNext = new System.Windows.Forms.Button();
             this.dtpScriptDate = new System.Windows.Forms.DateTimePicker();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnMovePrev = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnUpdateTFS = new System.Windows.Forms.Button();
             this.btnIndividual = new System.Windows.Forms.Button();
             this.btnVersion = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsbtnRemove = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnImport = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnRemove = new System.Windows.Forms.ToolStripButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSP)).BeginInit();
@@ -71,7 +71,7 @@
             this.tabControl1.Location = new System.Drawing.Point(6, 39);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(872, 373);
+            this.tabControl1.Size = new System.Drawing.Size(875, 414);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -80,13 +80,13 @@
             this.tabPage1.Controls.Add(this.cbAllSP);
             this.tabPage1.Controls.Add(this.dgvSP);
             this.tabPage1.Controls.Add(this.btnAdd);
-            this.tabPage1.Controls.Add(this.button7);
+            this.tabPage1.Controls.Add(this.btnMoveNext);
             this.tabPage1.Controls.Add(this.dtpScriptDate);
-            this.tabPage1.Controls.Add(this.button6);
+            this.tabPage1.Controls.Add(this.btnMovePrev);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(864, 347);
+            this.tabPage1.Size = new System.Drawing.Size(867, 388);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stored Procedures";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -116,14 +116,15 @@
             this.dgvSP.AllowUserToOrderColumns = true;
             this.dgvSP.AllowUserToResizeColumns = false;
             this.dgvSP.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvSP.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvSP.ColumnHeadersHeight = 28;
             this.dgvSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -138,9 +139,10 @@
             this.dgvSP.Location = new System.Drawing.Point(9, 40);
             this.dgvSP.Name = "dgvSP";
             this.dgvSP.RowHeadersVisible = false;
-            this.dgvSP.Size = new System.Drawing.Size(849, 301);
+            this.dgvSP.Size = new System.Drawing.Size(852, 338);
             this.dgvSP.TabIndex = 11;
             this.dgvSP.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSP_CellContentClick);
+            this.dgvSP.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvSP_DataBindingComplete);
             this.dgvSP.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvSP_RowsAdded);
             this.dgvSP.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvSP_RowsRemoved);
             // 
@@ -168,21 +170,21 @@
             // Column4
             // 
             this.Column4.DataPropertyName = "SPName";
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle10;
             this.Column4.HeaderText = "SP Name";
             this.Column4.Name = "Column4";
             this.Column4.Width = 270;
             // 
             // Column5
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            this.Column5.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.LightBlue;
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle11;
             this.Column5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Column5.HeaderText = "Script";
             this.Column5.Name = "Column5";
@@ -203,10 +205,10 @@
             // 
             // Column8
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            this.Column8.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            this.Column8.DefaultCellStyle = dataGridViewCellStyle12;
             this.Column8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Column8.HeaderText = "Compare";
             this.Column8.Name = "Column8";
@@ -223,40 +225,42 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // button7
+            // btnMoveNext
             // 
-            this.button7.Location = new System.Drawing.Point(802, 12);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(32, 21);
-            this.button7.TabIndex = 9;
-            this.button7.Text = ">>";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnMoveNext.Location = new System.Drawing.Point(824, 12);
+            this.btnMoveNext.Name = "btnMoveNext";
+            this.btnMoveNext.Size = new System.Drawing.Size(32, 21);
+            this.btnMoveNext.TabIndex = 9;
+            this.btnMoveNext.Text = ">>";
+            this.btnMoveNext.UseVisualStyleBackColor = true;
+            this.btnMoveNext.Click += new System.EventHandler(this.btnMoveNext_Click);
             // 
             // dtpScriptDate
             // 
-            this.dtpScriptDate.Location = new System.Drawing.Point(596, 13);
+            this.dtpScriptDate.Location = new System.Drawing.Point(618, 13);
             this.dtpScriptDate.Name = "dtpScriptDate";
             this.dtpScriptDate.Size = new System.Drawing.Size(200, 20);
             this.dtpScriptDate.TabIndex = 1;
             this.dtpScriptDate.ValueChanged += new System.EventHandler(this.dtpScriptDate_ValueChanged);
             // 
-            // button6
+            // btnMovePrev
             // 
-            this.button6.Location = new System.Drawing.Point(558, 13);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(32, 21);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "<<";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnMovePrev.Location = new System.Drawing.Point(580, 13);
+            this.btnMovePrev.Name = "btnMovePrev";
+            this.btnMovePrev.Size = new System.Drawing.Size(32, 21);
+            this.btnMovePrev.TabIndex = 8;
+            this.btnMovePrev.Text = "<<";
+            this.btnMovePrev.UseVisualStyleBackColor = true;
+            this.btnMovePrev.Click += new System.EventHandler(this.btnMovePrev_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnUpdateTFS);
             this.groupBox1.Controls.Add(this.btnIndividual);
             this.groupBox1.Controls.Add(this.btnVersion);
-            this.groupBox1.Location = new System.Drawing.Point(6, 418);
+            this.groupBox1.Location = new System.Drawing.Point(6, 459);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(868, 53);
+            this.groupBox1.Size = new System.Drawing.Size(875, 53);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Commands";
@@ -302,21 +306,8 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(888, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(929, 30);
             this.toolStrip1.TabIndex = 4;
-            // 
-            // tsbtnRemove
-            // 
-            this.tsbtnRemove.Image = global::DevKit.UI.Properties.Resources.Clearallrequests_8816;
-            this.tsbtnRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnRemove.Name = "tsbtnRemove";
-            this.tsbtnRemove.Size = new System.Drawing.Size(70, 27);
-            this.tsbtnRemove.Text = "Remove";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
             // 
             // tsbtnImport
             // 
@@ -327,11 +318,25 @@
             this.tsbtnImport.Text = "Import";
             this.tsbtnImport.Click += new System.EventHandler(this.tsbtnImport_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            // 
+            // tsbtnRemove
+            // 
+            this.tsbtnRemove.Image = global::DevKit.UI.Properties.Resources.Clearallrequests_8816;
+            this.tsbtnRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnRemove.Name = "tsbtnRemove";
+            this.tsbtnRemove.Size = new System.Drawing.Size(70, 27);
+            this.tsbtnRemove.Text = "Remove";
+            this.tsbtnRemove.Click += new System.EventHandler(this.tsbtnRemove_Click);
+            // 
             // frmDaily
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 477);
+            this.ClientSize = new System.Drawing.Size(929, 522);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
@@ -353,8 +358,8 @@
         #endregion
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnMoveNext;
+        private System.Windows.Forms.Button btnMovePrev;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnUpdateTFS;
         private System.Windows.Forms.Button btnIndividual;

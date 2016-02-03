@@ -28,8 +28,9 @@ namespace DevKit.UI
             try
             {
                 LoadDatabaseStoredProcedures();
-                LoadStoredProcedures(dtpScriptDate.Value);
                 LoadDataBases();
+                LoadStoredProcedures(dtpScriptDate.Value);
+                
             }
             catch (Exception ex)
             {
@@ -303,6 +304,44 @@ namespace DevKit.UI
         {
             frmImport frm = new frmImport(this);
             frm.ShowDialog();
+        }
+
+        private void dgvSP_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            var ms = AppTimeConfiguration.MainServer.ServerID;
+            foreach (DataGridViewRow rw in dgvSP.Rows)
+            {
+                rw.Cells[5].Value = ms;
+                rw.Cells[6].Value = ms;
+            }
+        }
+
+        private void btnMovePrev_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime d1 = dtpScriptDate.Value;
+                d1 = d1.AddDays(-1);
+                dtpScriptDate.Value = d1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnMoveNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime d1 = dtpScriptDate.Value;
+                d1 = d1.AddDays(1);
+                dtpScriptDate.Value = d1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
