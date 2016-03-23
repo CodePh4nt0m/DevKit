@@ -43,8 +43,15 @@ namespace DevKit.UI
                     item.Name = s.ServerID.ToString();
                     item.Click += new EventHandler(item_Click);
                     tsbtnExeOn.DropDownItems.Add(item);
+
+                    ToolStripItem item2 = new ToolStripMenuItem();
+                    item2.Text = s.Database;
+                    item2.Name = s.ServerID.ToString();
+                    item2.Click += new EventHandler(itemcheck_Click);
+                    tsbtnExeOnSelected.DropDownItems.Add(item2);
                 }
             }
+
             ToolStripSeparator tsSeparator = new ToolStripSeparator();
             tsbtnExeOn.DropDownItems.Add(tsSeparator);
 
@@ -81,6 +88,20 @@ namespace DevKit.UI
             {
                 //MessageBox.Show(ex.Message);
                 LogMessages(ex);
+            }
+
+        }
+
+        void itemcheck_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ToolStripMenuItem item = sender as ToolStripMenuItem;
+                item.Checked = !item.Checked;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -151,6 +172,40 @@ namespace DevKit.UI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void tsbtnClear_Click(object sender, EventArgs e)
+        {
+            txtQuery.Clear();
+        }
+
+        private void tsbtnExeOnSelected_ButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+                ExecuteOnSelected();
+                MessageBox.Show("Query executed successfully", "Success", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                LogMessages(ex);
+            }
+        }
+
+        private void ExecuteOnSelected()
+        {
+            string script = txtQuery.Text;
+            foreach (var dtm in tsbtnExeOnSelected.DropDownItems)
+            {
+                ToolStripMenuItem item = dtm as ToolStripMenuItem;
+                if (item.Checked)
+                {
+                    var server = _envlist.Where(x => x.ServerID.ToString() == item.Name).FirstOrDefault();
+                    if (server != null)
+                        ExecuteQueryOnServer(server, script);
+                }
             }
         }
     }

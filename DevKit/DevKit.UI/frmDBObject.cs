@@ -228,7 +228,8 @@ namespace DevKit.UI
         public void GenerateDataScript()
         {
             ScriptBusiness scriptBusiness = new ScriptBusiness();
-            string query = scriptBusiness.GenerateTableData(AppTimeConfiguration.MainServer, DataGenType.Insert, selectedtables);
+            var server = new EntityBusiness().GetServerList().Where(x=> x.ServerID == Convert.ToInt32(tscomserver.ComboBox.SelectedValue)).First();
+            string query = scriptBusiness.GenerateTableData(server, DataGenType.Insert, selectedtables);
             frmScriptViewer frm = new frmScriptViewer(query, "TableDataScript-" + DateTime.Now.Ticks);
             frm.Show();
         }

@@ -39,6 +39,10 @@
             this.openfileDiag = new System.Windows.Forms.OpenFileDialog();
             this.savefileDiag = new System.Windows.Forms.SaveFileDialog();
             this.txtQuery = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnClear = new System.Windows.Forms.ToolStripLabel();
+            this.tsbtnExeOnSelected = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtQuery)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +56,11 @@
             this.toolStripSeparator2,
             this.tsbtnSave,
             this.toolStripSeparator1,
-            this.tsbtnExeOn});
+            this.tsbtnExeOn,
+            this.toolStripSeparator4,
+            this.tsbtnExeOnSelected,
+            this.toolStripSeparator3,
+            this.tsbtnClear});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -125,6 +133,7 @@
             this.txtQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtQuery.IsReplaceMode = false;
             this.txtQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtQuery.LeftBracket = '(';
@@ -137,6 +146,34 @@
             this.txtQuery.Size = new System.Drawing.Size(913, 547);
             this.txtQuery.TabIndex = 3;
             this.txtQuery.Zoom = 100;
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 30);
+            // 
+            // tsbtnClear
+            // 
+            this.tsbtnClear.BackColor = System.Drawing.Color.Pink;
+            this.tsbtnClear.Name = "tsbtnClear";
+            this.tsbtnClear.Size = new System.Drawing.Size(51, 27);
+            this.tsbtnClear.Text = "Clear All";
+            this.tsbtnClear.Click += new System.EventHandler(this.tsbtnClear_Click);
+            // 
+            // tsbtnExeOnSelected
+            // 
+            this.tsbtnExeOnSelected.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnExeOnSelected.Image")));
+            this.tsbtnExeOnSelected.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbtnExeOnSelected.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnExeOnSelected.Name = "tsbtnExeOnSelected";
+            this.tsbtnExeOnSelected.Size = new System.Drawing.Size(98, 27);
+            this.tsbtnExeOnSelected.Text = "Execute On";
+            this.tsbtnExeOnSelected.ButtonClick += new System.EventHandler(this.tsbtnExeOnSelected_ButtonClick);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 30);
             // 
             // frmQueryWindow
             // 
@@ -168,5 +205,9 @@
         private System.Windows.Forms.OpenFileDialog openfileDiag;
         private System.Windows.Forms.SaveFileDialog savefileDiag;
         private FastColoredTextBoxNS.FastColoredTextBox txtQuery;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel tsbtnClear;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSplitButton tsbtnExeOnSelected;
     }
 }

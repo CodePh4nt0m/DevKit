@@ -32,6 +32,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnDataGenerate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
@@ -54,7 +55,6 @@
             this.tsojb = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tscomserver = new System.Windows.Forms.ToolStripComboBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -114,6 +114,16 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Data";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 88);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(136, 17);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.Text = "TRUNCATE n INSERT";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton4
             // 
@@ -333,18 +343,10 @@
             // 
             // tscomserver
             // 
+            this.tscomserver.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscomserver.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.tscomserver.Name = "tscomserver";
             this.tscomserver.Size = new System.Drawing.Size(180, 25);
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 88);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(136, 17);
-            this.radioButton1.TabIndex = 9;
-            this.radioButton1.Text = "TRUNCATE n INSERT";
-            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // frmDBObject
             // 
