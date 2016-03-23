@@ -19,12 +19,12 @@ namespace DevKit.UI
     {
         private List<TableModel> selectedtables { get; set; }
         private ServerModel maindb { get; set; }
+
         public frmDBObject()
         {
             InitializeComponent();
             dgvallTables.AutoGenerateColumns = false;
             dgvtblSelected.AutoGenerateColumns = false;
-            dgvDB.AutoGenerateColumns = false;
             selectedtables = new List<TableModel>();
             maindb = new ServerModel();
         }
@@ -127,15 +127,15 @@ namespace DevKit.UI
             {
                 tscomserver.ComboBox.SelectedValue = Convert.ToInt32(mainserver);
                 maindb = dbs.Where(x => x.ServerID == Convert.ToInt32(mainserver)).FirstOrDefault();
-                LoadOtherDBs(dbs, Convert.ToInt32(mainserver));
+                //LoadOtherDBs(dbs, Convert.ToInt32(mainserver));
             }
 
             else
             {
                 tscomserver.ComboBox.SelectedIndex = -1;
-                LoadOtherDBs(dbs, 0);
+                //LoadOtherDBs(dbs, 0);
             }
-                
+
 
             tscomserver.SelectedIndexChanged += tscomserver_SelectedIndexChanged;
         }
@@ -153,7 +153,7 @@ namespace DevKit.UI
                         var servers = data.GetServerList();
                         maindb = servers.Where(x => x.ServerID == id).FirstOrDefault();
                         LoadTables();
-                        LoadOtherDBs(servers,id);
+                        //LoadOtherDBs(servers,id);
                     }
                 }
 
@@ -164,38 +164,32 @@ namespace DevKit.UI
             }
         }
 
-        private void LoadOtherDBs(List<ServerModel> dblist,int mainid)
+
+        private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (mainid == 0)
+            dgvtblSelected.EndEdit();
+            var remlist = new List<int>();
+            foreach (DataGridViewRow rw in dgvtblSelected.Rows)
             {
-                dgvDB.DataSource = dblist;
+                if (Convert.ToBoolean(rw.Cells[1].Value))
+                {
+                    remlist.Add(Convert.ToInt32(rw.Cells[0].Value));
+                }
             }
-            else
+
+            foreach (var id in remlist)
             {
-                dgvDB.DataSource = dblist.Where(x => x.ServerID != mainid).ToList();
+                selectedtables.Remove(selectedtables.Where(x => x.TableId == id).First());
             }
+            selectedtables = selectedtables.OrderBy(x => x.TableName).ToList();
+            dgvtblSelected.DataSource = selectedtables;
         }
 
-        private void btnGenerate_Click(object sender, EventArgs e)
+        private void btnStuctGenerate_Click(object sender, EventArgs e)
         {
             try
             {
-                //GenerateScripts();
-                TableBusiness tdata = new TableBusiness();
-                //tdata.GenerateTableSript(AppTimeConfiguration.MainServer);
-                EntityBusiness data = new EntityBusiness();
-                var servers = data.GetServerList();
-                var tbllist = new List<TableModel>();
-                var compserver = servers.Where(x => x.ServerID == Convert.ToInt32(dgvDB.Rows[0].Cells[0].Value.ToString())).First();
-                foreach (DataGridViewRow rw in dgvtblSelected.Rows)
-                {
-                    tbllist.Add(new TableModel()
-                    {
-                        TableName = rw.Cells[2].Value.ToString()
-                    });
-                }
-
-                tdata.GenerateTableSript(AppTimeConfiguration.MainServer,compserver,tbllist);
+                GenerateStructureScript();
             }
             catch (Exception ex)
             {
@@ -203,24 +197,40 @@ namespace DevKit.UI
             }
         }
 
-        private void GenerateScripts()
+        private void btnDataGenerate_Click(object sender, EventArgs e)
         {
-            EntityBusiness data = new EntityBusiness();
-            var servers = data.GetServerList();
-            var selectedservers = new List<ServerModel>();
-
-            int id = Convert.ToInt32(tscomserver.ComboBox.SelectedValue);
-            var mainserver = servers.Where(x => x.ServerID == id).First();
-
-            foreach (DataGridViewRow rw in dgvDB.Rows)
+            try
             {
-                if (Convert.ToBoolean(rw.Cells[1].Value))
-                {
-                    selectedservers.Add(servers.Where(x=> x.ServerID == Convert.ToInt32(rw.Cells[0].Value)).First());
-                }
+                GenerateDataScript();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        public void GenerateStructureScript()
+        {
+            StructureType stype = StructureType.IfNotExists;
+            if(rbStIfNotExists.Checked)
+                stype = StructureType.IfNotExists;
+            else if (rbStDropnCreate.Checked)
+                stype = StructureType.DropAndCreate;
+            else if (rbStCreate.Checked)
+                stype = StructureType.Create;
 
+            ScriptBusiness scriptBusiness = new ScriptBusiness();
+            string query = scriptBusiness.GenerateTableStructure(AppTimeConfiguration.MainServer, stype, selectedtables);
+            frmScriptViewer frm = new frmScriptViewer(query, "TableStructureScript-" + DateTime.Now.Ticks);
+            frm.Show();
+        }
+
+        public void GenerateDataScript()
+        {
+            ScriptBusiness scriptBusiness = new ScriptBusiness();
+            string query = scriptBusiness.GenerateTableData(AppTimeConfiguration.MainServer, DataGenType.Insert, selectedtables);
+            frmScriptViewer frm = new frmScriptViewer(query, "TableDataScript-" + DateTime.Now.Ticks);
+            frm.Show();
         }
     }
 }

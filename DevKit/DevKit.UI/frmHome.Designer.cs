@@ -238,7 +238,6 @@
             this.smbtnObject.Size = new System.Drawing.Size(48, 39);
             this.smbtnObject.Text = "Console";
             this.smbtnObject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.smbtnObject.Visible = false;
             this.smbtnObject.Click += new System.EventHandler(this.smbtnObject_Click);
             // 
             // frmHome

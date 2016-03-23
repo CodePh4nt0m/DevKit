@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckInModel.cs" />
+    <Compile Include="DataTypes.cs" />
     <Compile Include="LogText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerModel.cs" />

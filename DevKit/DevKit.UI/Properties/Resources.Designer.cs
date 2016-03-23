@@ -61,6 +61,16 @@ namespace DevKit.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon _1458590027_grid_layout_window {
+            get {
+                object obj = ResourceManager.GetObject("_1458590027_grid_layout_window", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Backup_IBM_Server_icon {

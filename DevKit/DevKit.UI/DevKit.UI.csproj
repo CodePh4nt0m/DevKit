@@ -264,6 +264,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dakirby309-Windows-8-Metro-Apps-Visual-Studio-Metro.ico" />
+    <None Include="Resources\1458590027_grid-layout-window.ico" />
+    <None Include="Resources\1458590075_grid-layout-window.png" />
     <None Include="Resources\table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

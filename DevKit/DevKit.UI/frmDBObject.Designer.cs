@@ -30,6 +30,16 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnDataGenerate = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbStIfNotExists = new System.Windows.Forms.RadioButton();
+            this.rbStCreate = new System.Windows.Forms.RadioButton();
+            this.rbStDropnCreate = new System.Windows.Forms.RadioButton();
+            this.btnStuctGenerate = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddTable = new System.Windows.Forms.Button();
             this.dgvtblSelected = new System.Windows.Forms.DataGridView();
@@ -44,17 +54,14 @@
             this.tsojb = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tscomserver = new System.Windows.Forms.ToolStripComboBox();
-            this.dgvDB = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnGenerate = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvtblSelected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvallTables)).BeginInit();
             this.tsojb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDB)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -68,8 +75,10 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.btnGenerate);
-            this.tabPage2.Controls.Add(this.dgvDB);
+            this.tabPage2.Controls.Add(this.btnDataGenerate);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.btnStuctGenerate);
             this.tabPage2.Controls.Add(this.btnRemove);
             this.tabPage2.Controls.Add(this.btnAddTable);
             this.tabPage2.Controls.Add(this.dgvtblSelected);
@@ -83,18 +92,128 @@
             this.tabPage2.Text = "Tables";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnDataGenerate
+            // 
+            this.btnDataGenerate.Location = new System.Drawing.Point(639, 442);
+            this.btnDataGenerate.Name = "btnDataGenerate";
+            this.btnDataGenerate.Size = new System.Drawing.Size(124, 23);
+            this.btnDataGenerate.TabIndex = 11;
+            this.btnDataGenerate.Text = "Generate";
+            this.btnDataGenerate.UseVisualStyleBackColor = true;
+            this.btnDataGenerate.Click += new System.EventHandler(this.btnDataGenerate_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.radioButton4);
+            this.groupBox2.Controls.Add(this.radioButton5);
+            this.groupBox2.Controls.Add(this.radioButton6);
+            this.groupBox2.Location = new System.Drawing.Point(602, 319);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(161, 117);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Data";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Checked = true;
+            this.radioButton4.Location = new System.Drawing.Point(6, 19);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(65, 17);
+            this.radioButton4.TabIndex = 7;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "INSERT";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(6, 42);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(69, 17);
+            this.radioButton5.TabIndex = 8;
+            this.radioButton5.Text = "UPDATE";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(6, 65);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(84, 17);
+            this.radioButton6.TabIndex = 6;
+            this.radioButton6.Text = "TRUNCATE";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbStIfNotExists);
+            this.groupBox1.Controls.Add(this.rbStCreate);
+            this.groupBox1.Controls.Add(this.rbStDropnCreate);
+            this.groupBox1.Location = new System.Drawing.Point(393, 319);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(149, 100);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Structure";
+            // 
+            // rbStIfNotExists
+            // 
+            this.rbStIfNotExists.AutoSize = true;
+            this.rbStIfNotExists.Checked = true;
+            this.rbStIfNotExists.Location = new System.Drawing.Point(6, 19);
+            this.rbStIfNotExists.Name = "rbStIfNotExists";
+            this.rbStIfNotExists.Size = new System.Drawing.Size(101, 17);
+            this.rbStIfNotExists.TabIndex = 9;
+            this.rbStIfNotExists.TabStop = true;
+            this.rbStIfNotExists.Text = "IF NOT EXISTS";
+            this.rbStIfNotExists.UseVisualStyleBackColor = true;
+            // 
+            // rbStCreate
+            // 
+            this.rbStCreate.AutoSize = true;
+            this.rbStCreate.Location = new System.Drawing.Point(6, 65);
+            this.rbStCreate.Name = "rbStCreate";
+            this.rbStCreate.Size = new System.Drawing.Size(68, 17);
+            this.rbStCreate.TabIndex = 8;
+            this.rbStCreate.Text = "CREATE";
+            this.rbStCreate.UseVisualStyleBackColor = true;
+            // 
+            // rbStDropnCreate
+            // 
+            this.rbStDropnCreate.AutoSize = true;
+            this.rbStDropnCreate.Location = new System.Drawing.Point(6, 42);
+            this.rbStDropnCreate.Name = "rbStDropnCreate";
+            this.rbStDropnCreate.Size = new System.Drawing.Size(128, 17);
+            this.rbStDropnCreate.TabIndex = 6;
+            this.rbStDropnCreate.Text = "DROP AND CREATE";
+            this.rbStDropnCreate.UseVisualStyleBackColor = true;
+            // 
+            // btnStuctGenerate
+            // 
+            this.btnStuctGenerate.Location = new System.Drawing.Point(394, 425);
+            this.btnStuctGenerate.Name = "btnStuctGenerate";
+            this.btnStuctGenerate.Size = new System.Drawing.Size(124, 23);
+            this.btnStuctGenerate.TabIndex = 5;
+            this.btnStuctGenerate.Text = "Generate";
+            this.btnStuctGenerate.UseVisualStyleBackColor = true;
+            this.btnStuctGenerate.Click += new System.EventHandler(this.btnStuctGenerate_Click);
+            // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(639, 312);
+            this.btnRemove.Location = new System.Drawing.Point(639, 14);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(124, 23);
             this.btnRemove.TabIndex = 4;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnAddTable
             // 
-            this.btnAddTable.Location = new System.Drawing.Point(252, 312);
+            this.btnAddTable.Location = new System.Drawing.Point(252, 469);
             this.btnAddTable.Name = "btnAddTable";
             this.btnAddTable.Size = new System.Drawing.Size(124, 23);
             this.btnAddTable.TabIndex = 3;
@@ -168,7 +287,7 @@
             this.dgvallTables.Location = new System.Drawing.Point(6, 42);
             this.dgvallTables.Name = "dgvallTables";
             this.dgvallTables.RowHeadersVisible = false;
-            this.dgvallTables.Size = new System.Drawing.Size(370, 264);
+            this.dgvallTables.Size = new System.Drawing.Size(370, 421);
             this.dgvallTables.TabIndex = 0;
             // 
             // Column1
@@ -217,56 +336,15 @@
             this.tscomserver.Name = "tscomserver";
             this.tscomserver.Size = new System.Drawing.Size(180, 25);
             // 
-            // dgvDB
+            // radioButton1
             // 
-            this.dgvDB.AllowUserToAddRows = false;
-            this.dgvDB.AllowUserToDeleteRows = false;
-            this.dgvDB.AllowUserToOrderColumns = true;
-            this.dgvDB.AllowUserToResizeColumns = false;
-            this.dgvDB.AllowUserToResizeRows = false;
-            this.dgvDB.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dgvDB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDB.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewCheckBoxColumn2,
-            this.dataGridViewTextBoxColumn4});
-            this.dgvDB.Location = new System.Drawing.Point(7, 341);
-            this.dgvDB.Name = "dgvDB";
-            this.dgvDB.RowHeadersVisible = false;
-            this.dgvDB.Size = new System.Drawing.Size(274, 151);
-            this.dgvDB.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "ServerID";
-            this.dataGridViewTextBoxColumn3.HeaderText = "";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Visible = false;
-            // 
-            // dataGridViewCheckBoxColumn2
-            // 
-            this.dataGridViewCheckBoxColumn2.HeaderText = "";
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Database";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Database";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 200;
-            // 
-            // btnGenerate
-            // 
-            this.btnGenerate.Location = new System.Drawing.Point(287, 469);
-            this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(124, 23);
-            this.btnGenerate.TabIndex = 6;
-            this.btnGenerate.Text = "Generate";
-            this.btnGenerate.UseVisualStyleBackColor = true;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 88);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(136, 17);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.Text = "TRUNCATE n INSERT";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // frmDBObject
             // 
@@ -284,11 +362,14 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvtblSelected)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvallTables)).EndInit();
             this.tsojb.ResumeLayout(false);
             this.tsojb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,10 +393,16 @@
         private System.Windows.Forms.ToolStrip tsojb;
         private System.Windows.Forms.ToolStripComboBox tscomserver;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.DataGridView dgvDB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.Button btnStuctGenerate;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbStCreate;
+        private System.Windows.Forms.RadioButton rbStDropnCreate;
+        private System.Windows.Forms.Button btnDataGenerate;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton rbStIfNotExists;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
