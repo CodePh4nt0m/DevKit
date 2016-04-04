@@ -20,5 +20,6 @@ namespace DevKit.Entity
         public string Password { get; set; }
         public string Database { get; set; }
         public Nullable<bool> IsMain { get; set; }
+        public string DBName { get; set; }
     }
 }
