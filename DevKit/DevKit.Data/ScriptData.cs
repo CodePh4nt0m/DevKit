@@ -82,29 +82,48 @@ namespace DevKit.Data
         {
             try
             {
-                Server srv = new Server();
-
-                srv.ConnectionContext.LoginSecure = false;
-                srv.ConnectionContext.Login = server.Username;
-                srv.ConnectionContext.Password = server.Password;
-                srv.ConnectionContext.ServerInstance = server.ServerName;
-                Database genDb = srv.Databases[server.Database];
-
-                ScriptingOptions scriptOptions = new ScriptingOptions();
-                scriptOptions.ScriptData = true;
-                scriptOptions.ScriptSchema = false;
-
-                Scripter scripter = new Scripter(srv) { Options = scriptOptions };
-
                 var output = new StringBuilder();
-                foreach (var t in tables)
+                if (gentype == DataGenType.Truncate)
                 {
-                    var tbl = genDb.Tables[t.TableName, "dbo"];
-                    var script = scripter.EnumScript(new SqlSmoObject[] { tbl });
-                    foreach (var line in script)
-                        output.AppendLine(line);
+                    foreach (var t in tables)
+                    {
+                        var scpt = GetDataHeaderQuery(gentype, t.TableName);
+                        output.AppendLine(scpt);
+                    }
                 }
+                else
+                {
+                    Server srv = new Server();
+
+                    srv.ConnectionContext.LoginSecure = false;
+                    srv.ConnectionContext.Login = server.Username;
+                    srv.ConnectionContext.Password = server.Password;
+                    srv.ConnectionContext.ServerInstance = server.ServerName;
+                    Database genDb = srv.Databases[server.Database];
+
+                    ScriptingOptions scriptOptions = new ScriptingOptions();
+                    scriptOptions.ScriptData = true;
+                    scriptOptions.ScriptSchema = false;
+
+                    Scripter scripter = new Scripter(srv) { Options = scriptOptions };
+
+                    var gen = new StringBuilder();
+                    
+                    foreach (var t in tables)
+                    {
+                        var tbl = genDb.Tables[t.TableName, "dbo"];
+                        var script = scripter.EnumScript(new SqlSmoObject[] { tbl });
+                        foreach (var line in script)
+                            gen.AppendLine(line);
+
+                        var scpt = GetDataHeaderQuery(gentype, t.TableName);
+                        scpt = scpt.Replace("{query}", gen.ToString());
+                        output.AppendLine(scpt);
+                    }
+                }
+                
                 return output.ToString();
+
             }
             catch (Exception ex)
             {
@@ -122,14 +141,14 @@ namespace DevKit.Data
                 {
                     sb.Append("--- Table " + tablename);
                     sb.Append("\n");
-                    sb.Append("IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLESWHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '"+ tablename + "')");
+                    sb.Append("IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '"+ tablename + "')");
                     sb.Append("\nBEGIN\n{query}\nEND\n\nGO\n");
                 }
                 else if (gentype == StructureType.DropAndCreate)
                 {
                     sb.Append("--- Table " + tablename);
                     sb.Append("\n");
-                    sb.Append("IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLESWHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '" + tablename + "')");
+                    sb.Append("IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '" + tablename + "')");
                     sb.Append("\nBEGIN\n\tDROP TABLE " + tablename);
                     sb.Append("\nEND\nGO\n\n");
                     sb.Append("--- Table " + tablename);
@@ -139,6 +158,59 @@ namespace DevKit.Data
                 else if (gentype == StructureType.Create)
                 {
                     sb.Append("\n{query}\n\nGO\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return sb.ToString();
+        }
+
+        public string GetDataHeaderQuery(DataGenType gentype, string tablename)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+
+                if (gentype == DataGenType.Insert)
+                {
+                    sb.Append("--- Table " + tablename);
+                    sb.Append("\n{query}\n\nGO\n");
+                    //sb.Append("--- Table " + tablename);
+                    //sb.Append("\n");
+                    //sb.Append("IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLESWHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '" + tablename + "')");
+                    //sb.Append("\nBEGIN\n{query}\nEND\n\nGO\n");
+                }
+                else if (gentype == DataGenType.Update)
+                {
+                    //sb.Append("--- Table " + tablename);
+                    //sb.Append("\n");
+                    //sb.Append("IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLESWHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '" + tablename + "')");
+                    //sb.Append("\nBEGIN\n\tDROP TABLE " + tablename);
+                    //sb.Append("\nEND\nGO\n\n");
+                    //sb.Append("--- Table " + tablename);
+                    //sb.Append("\n");
+                    //sb.Append("\n{query}\n\nGO\n");
+                }
+                else if (gentype == DataGenType.Truncate)
+                {
+                    sb.Append("--- Table " + tablename);
+                    sb.Append("\n");
+                    sb.Append("IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '" + tablename + "')");
+                    sb.Append("\nBEGIN\n");
+                    sb.Append("\tTRUNCATE TABLE [dbo].[" + tablename + "]");
+                    sb.Append("\nEND\n\nGO\n");
+                }
+                else if (gentype == DataGenType.TruncateInsert)
+                {
+                    sb.Append("--- Table " + tablename);
+                    sb.Append("\n");
+                    sb.Append("IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo'AND TABLE_NAME = '" + tablename + "')");
+                    sb.Append("\nBEGIN\n");
+                    sb.Append("\tTRUNCATE TABLE [dbo].[" + tablename + "]");
+                    sb.Append("\nEND\n\nGO\n");
+                    sb.Append("\n{query}\nGO\n");
                 }
             }
             catch (Exception ex)

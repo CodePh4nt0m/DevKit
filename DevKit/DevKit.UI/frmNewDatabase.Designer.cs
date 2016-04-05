@@ -42,6 +42,8 @@
             this.btnLoadDB = new System.Windows.Forms.Button();
             this.cmbDatabase = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtDatabase = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // panel1
@@ -98,11 +100,11 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(222, 244);
+            this.btnConnect.Location = new System.Drawing.Point(222, 272);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
             this.btnConnect.TabIndex = 6;
-            this.btnConnect.Text = "Connect";
+            this.btnConnect.Text = "Save";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
@@ -117,7 +119,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(303, 244);
+            this.btnCancel.Location = new System.Drawing.Point(303, 272);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -128,7 +130,7 @@
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(15, 230);
+            this.label4.Location = new System.Drawing.Point(15, 217);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(379, 2);
             this.label4.TabIndex = 9;
@@ -161,11 +163,29 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Database :";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 232);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(78, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Databse Alias :";
+            // 
+            // txtDatabase
+            // 
+            this.txtDatabase.Location = new System.Drawing.Point(135, 229);
+            this.txtDatabase.Name = "txtDatabase";
+            this.txtDatabase.Size = new System.Drawing.Size(194, 20);
+            this.txtDatabase.TabIndex = 14;
+            // 
             // frmNewDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 277);
+            this.ClientSize = new System.Drawing.Size(408, 303);
+            this.Controls.Add(this.txtDatabase);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmbDatabase);
             this.Controls.Add(this.btnLoadDB);
@@ -207,5 +227,7 @@
         private System.Windows.Forms.Button btnLoadDB;
         private System.Windows.Forms.ComboBox cmbDatabase;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtDatabase;
     }
 }

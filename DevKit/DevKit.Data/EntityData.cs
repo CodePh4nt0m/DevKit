@@ -5,12 +5,40 @@ using System.Text;
 using System.Threading.Tasks;
 using DevKit.Entity;
 using DevKit.Model;
+using Microsoft.SqlServer.Management.Common;
 
 namespace DevKit.Data
 {
     public class EntityData
     {
         public List<ServerModel> GetServerList()
+        {
+            try
+            {
+                using (DevKitEntities db = new DevKitEntities())
+                {
+                    var res = db.DBServers.Where(x=> x.IsVisible).Select(s => new ServerModel()
+                    {
+                        ServerID = s.ServerID,
+                        ServerName = s.Servername,
+                        Username = s.Username,
+                        Password = s.Password,
+                        Database = s.Database,
+                        DbAlias = s.DBName,
+                        IsMain = s.IsMain,
+
+                        IsVisible = s.IsVisible
+                    });
+                    return res.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<ServerModel> GetAllServers()
         {
             try
             {
@@ -23,7 +51,10 @@ namespace DevKit.Data
                         Username = s.Username,
                         Password = s.Password,
                         Database = s.Database,
-                        IsMain = s.IsMain
+                        DbAlias = s.DBName,
+                        IsMain = s.IsMain,
+
+                        IsVisible = s.IsVisible
                     });
                     return res.ToList();
                 }
@@ -43,7 +74,9 @@ namespace DevKit.Data
                 ns.Username = server.Username;
                 ns.Password = server.Password;
                 ns.Database = server.Database;
+                ns.DBName = server.DbAlias;
                 ns.IsMain = server.IsMain;
+                ns.IsVisible = server.IsVisible;
 
                 using (DevKitEntities db = new DevKitEntities())
                 {
@@ -56,6 +89,31 @@ namespace DevKit.Data
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public int UpdateDatabases(List<ServerModel> slist)
+        {
+            try
+            {
+                using (DevKitEntities db = new DevKitEntities())
+                {
+                    foreach (var server in slist)
+                    {
+                        var sr = db.DBServers.Where(x => x.ServerID == server.ServerID).FirstOrDefault();
+                        if (sr != null)
+                        {
+                            sr.IsVisible = server.IsVisible;
+                        }
+                    }
+                    return db.SaveChanges();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return 0;
         }
 
         public void RemoveServer(int id)
@@ -205,6 +263,73 @@ namespace DevKit.Data
                         db.StoredProcedures.Remove(obj);
                         db.SaveChanges();
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<TableModel> GetLastTableScriptSession()
+        {
+            try
+            {
+                using (DevKitEntities db = new DevKitEntities())
+                {
+                    var sess = db.DBScriptSessions.Select(x => new TableModel()
+                    {
+                        TableId = x.TableId,
+                        TableName = x.TableName
+                    }).OrderBy(x=> x.TableName).ToList();
+                    return sess;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void AddTableObject(List<TableModel> tablelist)
+        {
+            try
+            {
+                using (DevKitEntities db = new DevKitEntities())
+                {
+                    foreach (var tbl in tablelist)
+                    {
+                        
+                        db.DBScriptSessions.Add(new DBScriptSession()
+                        {
+                            TableId = tbl.TableId,
+                            TableName = tbl.TableName
+                        });
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void RemoveTabelObject(List<TableModel> tablelist)
+        {
+            try
+            {
+                using (DevKitEntities db = new DevKitEntities())
+                {
+                    foreach (var tbl in tablelist)
+                    {
+                        var obj = db.DBScriptSessions.Where(x => x.TableId == tbl.TableId).FirstOrDefault();
+                        if (obj != null)
+                        {
+                            db.DBScriptSessions.Remove(obj);
+                        }
+                    }
+                    db.SaveChanges();
                 }
             }
             catch (Exception ex)

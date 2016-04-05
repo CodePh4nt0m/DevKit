@@ -30,17 +30,19 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnDataGenerate = new System.Windows.Forms.Button();
+            this.cbSelectAll = new System.Windows.Forms.CheckBox();
+            this.cbStructure = new System.Windows.Forms.CheckBox();
+            this.cbData = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.rbDTruncateInsert = new System.Windows.Forms.RadioButton();
+            this.rbDInsert = new System.Windows.Forms.RadioButton();
+            this.rbDUpdate = new System.Windows.Forms.RadioButton();
+            this.rbDTruncate = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbStIfNotExists = new System.Windows.Forms.RadioButton();
             this.rbStCreate = new System.Windows.Forms.RadioButton();
             this.rbStDropnCreate = new System.Windows.Forms.RadioButton();
-            this.btnStuctGenerate = new System.Windows.Forms.Button();
+            this.btnGenerate = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddTable = new System.Windows.Forms.Button();
             this.dgvtblSelected = new System.Windows.Forms.DataGridView();
@@ -75,10 +77,12 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.btnDataGenerate);
+            this.tabPage2.Controls.Add(this.cbSelectAll);
+            this.tabPage2.Controls.Add(this.cbStructure);
+            this.tabPage2.Controls.Add(this.cbData);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.btnStuctGenerate);
+            this.tabPage2.Controls.Add(this.btnGenerate);
             this.tabPage2.Controls.Add(this.btnRemove);
             this.tabPage2.Controls.Add(this.btnAddTable);
             this.tabPage2.Controls.Add(this.dgvtblSelected);
@@ -92,22 +96,47 @@
             this.tabPage2.Text = "Tables";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnDataGenerate
+            // cbSelectAll
             // 
-            this.btnDataGenerate.Location = new System.Drawing.Point(639, 442);
-            this.btnDataGenerate.Name = "btnDataGenerate";
-            this.btnDataGenerate.Size = new System.Drawing.Size(124, 23);
-            this.btnDataGenerate.TabIndex = 11;
-            this.btnDataGenerate.Text = "Generate";
-            this.btnDataGenerate.UseVisualStyleBackColor = true;
-            this.btnDataGenerate.Click += new System.EventHandler(this.btnDataGenerate_Click);
+            this.cbSelectAll.AutoSize = true;
+            this.cbSelectAll.Location = new System.Drawing.Point(413, 47);
+            this.cbSelectAll.Name = "cbSelectAll";
+            this.cbSelectAll.Size = new System.Drawing.Size(15, 14);
+            this.cbSelectAll.TabIndex = 13;
+            this.cbSelectAll.UseVisualStyleBackColor = true;
+            this.cbSelectAll.Visible = false;
+            this.cbSelectAll.CheckedChanged += new System.EventHandler(this.cbSelectAll_CheckedChanged);
+            // 
+            // cbStructure
+            // 
+            this.cbStructure.AutoSize = true;
+            this.cbStructure.Checked = true;
+            this.cbStructure.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbStructure.Location = new System.Drawing.Point(403, 457);
+            this.cbStructure.Name = "cbStructure";
+            this.cbStructure.Size = new System.Drawing.Size(107, 17);
+            this.cbStructure.TabIndex = 12;
+            this.cbStructure.Text = "Include Structure";
+            this.cbStructure.UseVisualStyleBackColor = true;
+            // 
+            // cbData
+            // 
+            this.cbData.AutoSize = true;
+            this.cbData.Checked = true;
+            this.cbData.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbData.Location = new System.Drawing.Point(516, 457);
+            this.cbData.Name = "cbData";
+            this.cbData.Size = new System.Drawing.Size(87, 17);
+            this.cbData.TabIndex = 11;
+            this.cbData.Text = "Include Data";
+            this.cbData.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Controls.Add(this.radioButton4);
-            this.groupBox2.Controls.Add(this.radioButton5);
-            this.groupBox2.Controls.Add(this.radioButton6);
+            this.groupBox2.Controls.Add(this.rbDTruncateInsert);
+            this.groupBox2.Controls.Add(this.rbDInsert);
+            this.groupBox2.Controls.Add(this.rbDUpdate);
+            this.groupBox2.Controls.Add(this.rbDTruncate);
             this.groupBox2.Location = new System.Drawing.Point(602, 319);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(161, 117);
@@ -115,47 +144,47 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Data";
             // 
-            // radioButton1
+            // rbDTruncateInsert
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 88);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(136, 17);
-            this.radioButton1.TabIndex = 9;
-            this.radioButton1.Text = "TRUNCATE n INSERT";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbDTruncateInsert.AutoSize = true;
+            this.rbDTruncateInsert.Location = new System.Drawing.Point(6, 88);
+            this.rbDTruncateInsert.Name = "rbDTruncateInsert";
+            this.rbDTruncateInsert.Size = new System.Drawing.Size(136, 17);
+            this.rbDTruncateInsert.TabIndex = 9;
+            this.rbDTruncateInsert.Text = "TRUNCATE n INSERT";
+            this.rbDTruncateInsert.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // rbDInsert
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(6, 19);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(65, 17);
-            this.radioButton4.TabIndex = 7;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "INSERT";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.rbDInsert.AutoSize = true;
+            this.rbDInsert.Checked = true;
+            this.rbDInsert.Location = new System.Drawing.Point(6, 19);
+            this.rbDInsert.Name = "rbDInsert";
+            this.rbDInsert.Size = new System.Drawing.Size(65, 17);
+            this.rbDInsert.TabIndex = 7;
+            this.rbDInsert.TabStop = true;
+            this.rbDInsert.Text = "INSERT";
+            this.rbDInsert.UseVisualStyleBackColor = true;
             // 
-            // radioButton5
+            // rbDUpdate
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(6, 42);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(69, 17);
-            this.radioButton5.TabIndex = 8;
-            this.radioButton5.Text = "UPDATE";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.rbDUpdate.AutoSize = true;
+            this.rbDUpdate.Location = new System.Drawing.Point(6, 42);
+            this.rbDUpdate.Name = "rbDUpdate";
+            this.rbDUpdate.Size = new System.Drawing.Size(69, 17);
+            this.rbDUpdate.TabIndex = 8;
+            this.rbDUpdate.Text = "UPDATE";
+            this.rbDUpdate.UseVisualStyleBackColor = true;
             // 
-            // radioButton6
+            // rbDTruncate
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(6, 65);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(84, 17);
-            this.radioButton6.TabIndex = 6;
-            this.radioButton6.Text = "TRUNCATE";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this.rbDTruncate.AutoSize = true;
+            this.rbDTruncate.Location = new System.Drawing.Point(6, 65);
+            this.rbDTruncate.Name = "rbDTruncate";
+            this.rbDTruncate.Size = new System.Drawing.Size(84, 17);
+            this.rbDTruncate.TabIndex = 6;
+            this.rbDTruncate.Text = "TRUNCATE";
+            this.rbDTruncate.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -164,7 +193,7 @@
             this.groupBox1.Controls.Add(this.rbStDropnCreate);
             this.groupBox1.Location = new System.Drawing.Point(393, 319);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(149, 100);
+            this.groupBox1.Size = new System.Drawing.Size(149, 117);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Structure";
@@ -201,15 +230,15 @@
             this.rbStDropnCreate.Text = "DROP AND CREATE";
             this.rbStDropnCreate.UseVisualStyleBackColor = true;
             // 
-            // btnStuctGenerate
+            // btnGenerate
             // 
-            this.btnStuctGenerate.Location = new System.Drawing.Point(394, 425);
-            this.btnStuctGenerate.Name = "btnStuctGenerate";
-            this.btnStuctGenerate.Size = new System.Drawing.Size(124, 23);
-            this.btnStuctGenerate.TabIndex = 5;
-            this.btnStuctGenerate.Text = "Generate";
-            this.btnStuctGenerate.UseVisualStyleBackColor = true;
-            this.btnStuctGenerate.Click += new System.EventHandler(this.btnStuctGenerate_Click);
+            this.btnGenerate.Location = new System.Drawing.Point(620, 453);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(124, 23);
+            this.btnGenerate.TabIndex = 5;
+            this.btnGenerate.Text = "Generate";
+            this.btnGenerate.UseVisualStyleBackColor = true;
+            this.btnGenerate.Click += new System.EventHandler(this.btnStuctGenerate_Click);
             // 
             // btnRemove
             // 
@@ -395,16 +424,18 @@
         private System.Windows.Forms.ToolStrip tsojb;
         private System.Windows.Forms.ToolStripComboBox tscomserver;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.Button btnStuctGenerate;
+        private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbStCreate;
         private System.Windows.Forms.RadioButton rbStDropnCreate;
-        private System.Windows.Forms.Button btnDataGenerate;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton rbDInsert;
+        private System.Windows.Forms.RadioButton rbDUpdate;
+        private System.Windows.Forms.RadioButton rbDTruncate;
         private System.Windows.Forms.RadioButton rbStIfNotExists;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rbDTruncateInsert;
+        private System.Windows.Forms.CheckBox cbStructure;
+        private System.Windows.Forms.CheckBox cbData;
+        private System.Windows.Forms.CheckBox cbSelectAll;
     }
 }

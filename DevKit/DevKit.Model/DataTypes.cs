@@ -17,6 +17,7 @@ namespace DevKit.Model
     {
         Insert = 1,
         Update = 2,
-        Truncate = 3
+        Truncate = 3,
+        TruncateInsert = 4
     }
 }

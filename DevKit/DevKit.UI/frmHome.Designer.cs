@@ -231,7 +231,7 @@
             // smbtnObject
             // 
             this.smbtnObject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.smbtnObject.Image = global::DevKit.UI.Properties.Resources.table;
+            this.smbtnObject.Image = global::DevKit.UI.Properties.Resources.Grid;
             this.smbtnObject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.smbtnObject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.smbtnObject.Name = "smbtnObject";

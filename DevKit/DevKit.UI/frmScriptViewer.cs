@@ -77,7 +77,7 @@ namespace DevKit.UI
                 foreach (var s in serverlist)
                 {
                     ToolStripItem item = new ToolStripMenuItem();
-                    item.Text = s.Database;
+                    item.Text = s.DbAlias;
                     item.Name = s.ServerID.ToString();
                     item.Click += new EventHandler(item_Click);
                     tsbtnExeOn.DropDownItems.Add(item);

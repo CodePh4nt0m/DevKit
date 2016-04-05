@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DBScriptSession">
+          <Key>
+            <PropertyRef Name="ScriptSessionId" />
+          </Key>
+          <Property Name="ScriptSessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableId" Type="int" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="DBServer">
           <Key>
             <PropertyRef Name="ServerID" />
@@ -16,6 +24,7 @@
           <Property Name="Database" Type="nvarchar" MaxLength="150" />
           <Property Name="DBName" Type="nvarchar" MaxLength="150" />
           <Property Name="IsMain" Type="bit" />
+          <Property Name="IsVisible" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="StoredProcedure">
           <Key>
@@ -27,6 +36,7 @@
           <Property Name="SPDate" Type="datetime" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="DBScriptSession" EntityType="Self.DBScriptSession" store:Type="Tables" />
           <EntitySet Name="DBServer" EntityType="Self.DBServer" store:Type="Tables" />
           <EntitySet Name="StoredProcedure" EntityType="Self.StoredProcedure" store:Type="Tables" />
         </EntityContainer>
@@ -35,21 +45,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DevKitEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="DBServers" EntityType="Model.DBServer" />
           <EntitySet Name="StoredProcedures" EntityType="Model.StoredProcedure" />
+          <EntitySet Name="DBServers" EntityType="Model.DBServer" />
+          <EntitySet Name="DBScriptSessions" EntityType="Model.DBScriptSession" />
         </EntityContainer>
-        <EntityType Name="DBServer">
-          <Key>
-            <PropertyRef Name="ServerID" />
-          </Key>
-          <Property Name="ServerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Servername" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Database" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="IsMain" Type="Boolean" />
-          <Property Name="DBName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="StoredProcedure">
           <Key>
             <PropertyRef Name="Id" />
@@ -59,17 +58,49 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="SPDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="DBServer">
+          <Key>
+            <PropertyRef Name="ServerID" />
+          </Key>
+          <Property Name="ServerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Servername" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Database" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DBName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsMain" Type="Boolean" />
+          <Property Name="IsVisible" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DBScriptSession">
+          <Key>
+            <PropertyRef Name="ScriptSessionId" />
+          </Key>
+          <Property Name="ScriptSessionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableId" Type="Int32" Nullable="false" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DevKitEntities" >
+          <EntitySetMapping Name="StoredProcedures">
+            <EntityTypeMapping TypeName="Model.StoredProcedure">
+              <MappingFragment StoreEntitySet="StoredProcedure">
+                <ScalarProperty Name="SPDate" ColumnName="SPDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SPName" ColumnName="SPName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DBServers">
             <EntityTypeMapping TypeName="Model.DBServer">
               <MappingFragment StoreEntitySet="DBServer">
-                <ScalarProperty Name="DBName" ColumnName="DBName" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
                 <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+                <ScalarProperty Name="DBName" ColumnName="DBName" />
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -78,13 +109,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StoredProcedures">
-            <EntityTypeMapping TypeName="Model.StoredProcedure">
-              <MappingFragment StoreEntitySet="StoredProcedure">
-                <ScalarProperty Name="SPDate" ColumnName="SPDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="SPName" ColumnName="SPName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="DBScriptSessions">
+            <EntityTypeMapping TypeName="Model.DBScriptSession">
+              <MappingFragment StoreEntitySet="DBScriptSession">
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="ScriptSessionId" ColumnName="ScriptSessionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

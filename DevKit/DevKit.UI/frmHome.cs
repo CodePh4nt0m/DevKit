@@ -78,7 +78,7 @@ namespace DevKit.UI
 
             EntityBusiness entityBusiness = new EntityBusiness();
             var dbs = entityBusiness.GetServerList();
-            cmbDatabase.ComboBox.DisplayMember = "Database";
+            cmbDatabase.ComboBox.DisplayMember = "DbAlias";
             cmbDatabase.ComboBox.ValueMember = "ServerID";
             cmbDatabase.ComboBox.DataSource = dbs;
             string mainserver = new ConfigurationHelper().GetConfigurationValue("mainserver");

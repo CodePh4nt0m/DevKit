@@ -25,11 +25,36 @@ namespace DevKit.Business
             }
         }
 
+        public List<ServerModel> GetAllServers()
+        {
+            try
+            {
+                var res = entityData.GetAllServers();
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public int AddNewDbServer(ServerModel newServer)
         {
             try
             {
                 return entityData.AddServer(newServer);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public int UpdateDatabases(List<ServerModel> slist)
+        {
+            try
+            {
+                return entityData.UpdateDatabases(slist);
             }
             catch (Exception ex)
             {
@@ -122,11 +147,47 @@ namespace DevKit.Business
             }
         }
 
+        public List<TableModel> GetLastTableScriptSession()
+        {
+            try
+            {
+                return entityData.GetLastTableScriptSession();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public void RemoveStoredProcedure(long id)
         {
             try
             {
                 entityData.RemoveStoredProcedure(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void AddTableObject(List<TableModel> tablelist)
+        {
+            try
+            {
+                entityData.AddTableObject(tablelist);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void RemoveTabelObject(List<TableModel> tablelist)
+        {
+            try
+            {
+                entityData.RemoveTabelObject(tablelist);
             }
             catch (Exception ex)
             {

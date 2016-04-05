@@ -61,12 +61,12 @@ namespace DevKit.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon _1458590027_grid_layout_window {
+        internal static System.Drawing.Bitmap _1458590075_grid_layout_window {
             get {
-                object obj = ResourceManager.GetObject("_1458590027_grid_layout_window", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("_1458590075_grid_layout_window", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -136,6 +136,16 @@ namespace DevKit.UI.Properties {
         internal static System.Drawing.Bitmap Constant_Shortcut_7229 {
             get {
                 object obj = ResourceManager.GetObject("Constant_Shortcut_7229", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grid {
+            get {
+                object obj = ResourceManager.GetObject("Grid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

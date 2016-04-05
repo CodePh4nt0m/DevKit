@@ -25,7 +25,8 @@ namespace DevKit.Entity
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<DBServer> DBServers { get; set; }
         public DbSet<StoredProcedure> StoredProcedures { get; set; }
+        public DbSet<DBServer> DBServers { get; set; }
+        public DbSet<DBScriptSession> DBScriptSessions { get; set; }
     }
 }

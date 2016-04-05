@@ -13,7 +13,10 @@ namespace DevKit.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string Database { get; set; }
+        public string DbAlias { get; set; }
         public bool? IsMain { get; set; }
+
+        public bool IsVisible { get; set; }
     }
 }
 

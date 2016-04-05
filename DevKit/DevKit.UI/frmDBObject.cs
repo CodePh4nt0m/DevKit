@@ -27,6 +27,22 @@ namespace DevKit.UI
             dgvtblSelected.AutoGenerateColumns = false;
             selectedtables = new List<TableModel>();
             maindb = new ServerModel();
+            LoadLastSavedSession();
+        }
+
+        private void LoadLastSavedSession()
+        {
+            try
+            {
+                EntityBusiness entityBusiness = new EntityBusiness();
+                var lastsess = entityBusiness.GetLastTableScriptSession();
+                selectedtables = lastsess;
+                dgvtblSelected.DataSource = selectedtables;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void frmDBObject_Load(object sender, EventArgs e)
@@ -80,6 +96,7 @@ namespace DevKit.UI
 
         private void AddTables()
         {
+            EntityBusiness entityBusiness = new EntityBusiness();
             dgvallTables.EndEdit();
             var tbllist = new List<TableModel>();
             foreach (DataGridViewRow rw in dgvallTables.Rows)
@@ -96,6 +113,7 @@ namespace DevKit.UI
             var newtables =
                 tbllist.Where(y => !selectedtables.Select(x => x.TableId).Contains(y.TableId))
                     .ToList();
+            entityBusiness.AddTableObject(newtables);
             selectedtables.AddRange(newtables);
             selectedtables = selectedtables.OrderBy(x => x.TableName).ToList();
             dgvtblSelected.DataSource = selectedtables;
@@ -119,7 +137,7 @@ namespace DevKit.UI
 
             EntityBusiness entityBusiness = new EntityBusiness();
             var dbs = entityBusiness.GetServerList();
-            tscomserver.ComboBox.DisplayMember = "Database";
+            tscomserver.ComboBox.DisplayMember = "DbAlias";
             tscomserver.ComboBox.ValueMember = "ServerID";
             tscomserver.ComboBox.DataSource = dbs;
             string mainserver = new ConfigurationHelper().GetConfigurationValue("mainserver");
@@ -153,7 +171,6 @@ namespace DevKit.UI
                         var servers = data.GetServerList();
                         maindb = servers.Where(x => x.ServerID == id).FirstOrDefault();
                         LoadTables();
-                        //LoadOtherDBs(servers,id);
                     }
                 }
 
@@ -177,6 +194,11 @@ namespace DevKit.UI
                 }
             }
 
+            EntityBusiness entityBusiness = new EntityBusiness();
+            entityBusiness.RemoveTabelObject(remlist.Select(x=> new TableModel()
+            {
+                TableId = x
+            }).ToList());
             foreach (var id in remlist)
             {
                 selectedtables.Remove(selectedtables.Where(x => x.TableId == id).First());
@@ -189,7 +211,25 @@ namespace DevKit.UI
         {
             try
             {
-                GenerateStructureScript();
+                StringBuilder sb = new StringBuilder();
+                if (cbStructure.Checked)
+                {
+                    sb.AppendLine("/******* Table Structures *******/ \n");
+                    sb.Append(GenerateStructureScript());
+                    sb.AppendLine("/******* End Table Structures *******/ \n");
+                    sb.Append("\n \n \n \n");
+                }
+
+                if (cbData.Checked)
+                {
+                    sb.AppendLine("/******* Data Script *******/ \n");
+                    sb.Append(GenerateDataScript());
+                    sb.AppendLine("/******* End Data Script *******/ \n");
+                }
+
+
+                frmScriptViewer frm = new frmScriptViewer(sb.ToString(), "Script-" + DateTime.Now.Ticks);
+                frm.Show();
             }
             catch (Exception ex)
             {
@@ -197,19 +237,7 @@ namespace DevKit.UI
             }
         }
 
-        private void btnDataGenerate_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                GenerateDataScript();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        public void GenerateStructureScript()
+        public string GenerateStructureScript()
         {
             StructureType stype = StructureType.IfNotExists;
             if(rbStIfNotExists.Checked)
@@ -221,17 +249,41 @@ namespace DevKit.UI
 
             ScriptBusiness scriptBusiness = new ScriptBusiness();
             string query = scriptBusiness.GenerateTableStructure(AppTimeConfiguration.MainServer, stype, selectedtables);
-            frmScriptViewer frm = new frmScriptViewer(query, "TableStructureScript-" + DateTime.Now.Ticks);
-            frm.Show();
+            return query;
         }
 
-        public void GenerateDataScript()
+        public string GenerateDataScript()
         {
+            DataGenType dtype = DataGenType.Insert;
+
+            if (rbDInsert.Checked)
+                dtype = DataGenType.Insert;
+            else if (rbDUpdate.Checked)
+                dtype = DataGenType.Update;
+            else if (rbDTruncate.Checked)
+                dtype = DataGenType.Truncate;
+            else if (rbDTruncateInsert.Checked)
+                dtype = DataGenType.TruncateInsert;
+
             ScriptBusiness scriptBusiness = new ScriptBusiness();
             var server = new EntityBusiness().GetServerList().Where(x=> x.ServerID == Convert.ToInt32(tscomserver.ComboBox.SelectedValue)).First();
-            string query = scriptBusiness.GenerateTableData(server, DataGenType.Insert, selectedtables);
-            frmScriptViewer frm = new frmScriptViewer(query, "TableDataScript-" + DateTime.Now.Ticks);
-            frm.Show();
+            string query = scriptBusiness.GenerateTableData(server, dtype, selectedtables);
+            return query;
+        }
+
+        private void cbSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            //foreach (var tbl in selectedtables)
+            //{
+            //    tbl.bSelected = cbSelectAll.Checked;
+            //}
+            //foreach (DataGridViewRow row in dgvtblSelected.Rows)
+            //{
+            //    var cb = row.Cells[1] as DataGridViewCheckBoxCell;
+            //    cb.Value = cbSelectAll.Checked;
+            //}
+            //dgvtblSelected.EndEdit();
+            //dgvtblSelected.DataSource = selectedtables;
         }
     }
 }

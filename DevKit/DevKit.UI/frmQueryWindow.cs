@@ -39,13 +39,13 @@ namespace DevKit.UI
                 foreach (var s in serverlist)
                 {
                     ToolStripItem item = new ToolStripMenuItem();
-                    item.Text = s.Database;
+                    item.Text = s.DbAlias;
                     item.Name = s.ServerID.ToString();
                     item.Click += new EventHandler(item_Click);
                     tsbtnExeOn.DropDownItems.Add(item);
 
                     ToolStripItem item2 = new ToolStripMenuItem();
-                    item2.Text = s.Database;
+                    item2.Text = s.DbAlias;
                     item2.Name = s.ServerID.ToString();
                     item2.Click += new EventHandler(itemcheck_Click);
                     tsbtnExeOnSelected.DropDownItems.Add(item2);

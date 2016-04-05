@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevKit.Business;
+using DevKit.Model;
 
 namespace DevKit.UI
 {
@@ -40,7 +41,7 @@ namespace DevKit.UI
         public void LoadDatabases()
         {
             EntityBusiness business = new EntityBusiness();
-            var databases = business.GetServerList();
+            var databases = business.GetAllServers();
             dgvDatabases.DataSource = databases;
             dgvDatabases.ClearSelection();
         }
@@ -103,6 +104,39 @@ namespace DevKit.UI
             EntityBusiness entityBusiness = new EntityBusiness();
             entityBusiness.ClearAllDatabases();
             LoadDatabases();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateDatabases();
+                dgvDatabases.ClearSelection();
+                MessageBox.Show("Details updated successfully", "Success", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void UpdateDatabases()
+        {
+            List<ServerModel> slist = new List<ServerModel>();
+
+            dgvDatabases.EndEdit();
+            foreach (DataGridViewRow row in dgvDatabases.Rows)
+            {
+                slist.Add(new ServerModel()
+                {
+                    ServerID = Convert.ToInt32(row.Cells[1].Value),
+                    IsVisible = Convert.ToBoolean(row.Cells[7].Value)
+                });
+            }
+
+            EntityBusiness entityBusiness = new EntityBusiness();
+            entityBusiness.UpdateDatabases(slist);
         }
     }
 }

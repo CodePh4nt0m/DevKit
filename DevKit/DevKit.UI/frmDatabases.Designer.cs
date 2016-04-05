@@ -36,12 +36,15 @@
             this.dgvDatabases = new System.Windows.Forms.DataGridView();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnRemoveAll = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatabases)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +59,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(673, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(838, 30);
             this.toolStrip1.TabIndex = 1;
             // 
             // tsbtnNew
@@ -91,21 +94,22 @@
             this.Column6,
             this.Column2,
             this.Column3,
+            this.Column7,
             this.Column4,
-            this.Column5});
+            this.Column5,
+            this.Column8});
             this.dgvDatabases.Location = new System.Drawing.Point(8, 39);
             this.dgvDatabases.MultiSelect = false;
             this.dgvDatabases.Name = "dgvDatabases";
             this.dgvDatabases.RowHeadersVisible = false;
-            this.dgvDatabases.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDatabases.Size = new System.Drawing.Size(569, 261);
+            this.dgvDatabases.Size = new System.Drawing.Size(822, 261);
             this.dgvDatabases.TabIndex = 2;
             this.dgvDatabases.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvDatabases_RowsAdded);
             this.dgvDatabases.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvDatabases_RowsRemoved);
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(587, 241);
+            this.btnRemove.Location = new System.Drawing.Point(8, 306);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(75, 23);
             this.btnRemove.TabIndex = 3;
@@ -115,13 +119,24 @@
             // 
             // btnRemoveAll
             // 
-            this.btnRemoveAll.Location = new System.Drawing.Point(587, 277);
+            this.btnRemoveAll.Location = new System.Drawing.Point(89, 306);
             this.btnRemoveAll.Name = "btnRemoveAll";
             this.btnRemoveAll.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveAll.TabIndex = 4;
             this.btnRemoveAll.Text = "Remove All";
             this.btnRemoveAll.UseVisualStyleBackColor = true;
             this.btnRemoveAll.Click += new System.EventHandler(this.btnRemoveAll_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.LightBlue;
+            this.btnSave.Location = new System.Drawing.Point(715, 306);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(115, 23);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // Column1
             // 
@@ -140,8 +155,8 @@
             // 
             // Column2
             // 
-            this.Column2.DataPropertyName = "ServerName";
-            this.Column2.HeaderText = "Server Name";
+            this.Column2.DataPropertyName = "Servername";
+            this.Column2.HeaderText = "Instance Name";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             this.Column2.Width = 200;
@@ -152,6 +167,15 @@
             this.Column3.HeaderText = "Database";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
+            this.Column3.Width = 150;
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "DbAlias";
+            this.Column7.HeaderText = "Alias";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 150;
             // 
             // Column4
             // 
@@ -167,11 +191,19 @@
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "IsVisible";
+            this.Column8.HeaderText = "Visible";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 60;
+            // 
             // frmDatabases
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 309);
+            this.ClientSize = new System.Drawing.Size(838, 338);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnRemoveAll);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.dgvDatabases);
@@ -197,11 +229,14 @@
         private System.Windows.Forms.DataGridView dgvDatabases;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column8;
     }
 }

@@ -12,15 +12,10 @@ namespace DevKit.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class DBServer
+    public partial class DBScriptSession
     {
-        public int ServerID { get; set; }
-        public string Servername { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Database { get; set; }
-        public string DBName { get; set; }
-        public Nullable<bool> IsMain { get; set; }
-        public bool IsVisible { get; set; }
+        public int ScriptSessionId { get; set; }
+        public int TableId { get; set; }
+        public string TableName { get; set; }
     }
 }

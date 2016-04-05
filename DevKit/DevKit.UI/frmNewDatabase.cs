@@ -26,6 +26,11 @@ namespace DevKit.UI
         {
             try
             {
+                if (txtDatabase.Text.Trim().Length < 1)
+                {
+                    MessageBox.Show("Databse Alias is required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 AddNewServer();
 
                 if (_parentForm is frmDatabases)
@@ -75,6 +80,7 @@ namespace DevKit.UI
             ns.Username = txtUsername.Text.Trim();
             ns.Password = txtPassword.Text.Trim();
             ns.Database = cmbDatabase.Text.Trim();
+            ns.DbAlias = txtDatabase.Text.Trim();
 
             EntityBusiness business = new EntityBusiness();
             int res = business.AddNewDbServer(ns);
