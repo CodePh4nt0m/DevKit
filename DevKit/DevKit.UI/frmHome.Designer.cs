@@ -49,6 +49,7 @@
             this.smbtnConsole = new System.Windows.Forms.ToolStripButton();
             this.smbtnFolder = new System.Windows.Forms.ToolStripButton();
             this.smbtnObject = new System.Windows.Forms.ToolStripButton();
+            this.smbtnBoost = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.mainToobar.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -173,7 +174,8 @@
             this.smbtnSQL,
             this.smbtnConsole,
             this.smbtnFolder,
-            this.smbtnObject});
+            this.smbtnObject,
+            this.smbtnBoost});
             this.toolStrip2.Location = new System.Drawing.Point(0, 54);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -240,6 +242,18 @@
             this.smbtnObject.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.smbtnObject.Click += new System.EventHandler(this.smbtnObject_Click);
             // 
+            // smbtnBoost
+            // 
+            this.smbtnBoost.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.smbtnBoost.Image = global::DevKit.UI.Properties.Resources.drill;
+            this.smbtnBoost.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.smbtnBoost.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.smbtnBoost.Name = "smbtnBoost";
+            this.smbtnBoost.Size = new System.Drawing.Size(48, 39);
+            this.smbtnBoost.Text = "Console";
+            this.smbtnBoost.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.smbtnBoost.Click += new System.EventHandler(this.smbtnBoost_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,5 +303,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton smbtnObject;
+        private System.Windows.Forms.ToolStripButton smbtnBoost;
     }
 }

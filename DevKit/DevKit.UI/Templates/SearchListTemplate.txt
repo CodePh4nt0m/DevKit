@@ -1,0 +1,110 @@
+﻿SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/*
+Stored Procedure    : {tag_sqp_spname}
+Description         : 
+Created By          : {tag_sqp_creator}
+Created Date        : {tag_sqp_createddate}
+***********************************************************
+Modification Control
+Code        Name            Date            Comment
+-----------------------------------------------------------
+*/
+CREATE PROCEDURE [dbo].[{tag_sqp_spname}]
+    @XSearchText NVARCHAR(MAX) = '',
+    @XbIsSearch BIT = 0,
+    @XbAdvanceSearch BIT = 0,
+
+    @XOrderTypeId INT = 1,
+    @XbIsAscending BIT = 1,
+
+    --** advance search parameters
+    --Ex . @XCreatedDate DATETIME = NULL,
+    --** end advance search parameters
+
+    @XPageIndex INT = 1,
+    @XPageSize INT = 10,
+    @XbReturnOnlyIds BIT = 0,
+    @RTotalCount INT OUT
+AS
+BEGIN
+    --** declare local parameters
+    DECLARE @SearchText NVARCHAR(MAX),
+    @bIsSearch BIT,
+    @bAdvanceSearch BIT,
+
+    @OrderTypeId INT,
+    @bIsAscending BIT,
+
+    --@CreatedDate DATETIME,
+
+    @PageIndex INT,
+    @PageSize INT,
+    @bReturnOnlyIds BIT
+    --** end local variables
+
+    --** set local variable values
+    SET @SearchText = ISNULL(@XSearchText,'')   
+    SET @bIsSearch = ISNULL(@XbIsSearch,0)
+    SET @bAdvanceSearch = ISNULL(@XbAdvanceSearch,0)
+
+    SET @OrderTypeId = ISNULL(@XOrderTypeId,1)
+    SET @bIsAscending = ISNULL(@XbIsAscending,1)
+
+    --SET @CreatedDate = @XCreatedDate
+
+    SET @PageIndex = ISNULL(@XPageIndex,1)
+    SET @PageSize = ISNULL(@XPageSize,10)
+
+    DECLARE @FromIndex INT,@ToIndex INT
+    SET @FromIndex = (@PageIndex * @PageSize) - (@PageSize - 1)
+    SET @ToIndex = (@PageIndex * @PageSize)
+
+    SET @bReturnOnlyIds = ISNULL(@XbReturnOnlyIds,0)
+
+    SET @RTotalCount = 0
+    --** end set local variable values
+
+    IF(@bAdvanceSearch = 0) -- general search
+    BEGIN
+	   /*
+	  SELECT tbl.RowNum,
+	  tbl.QueryName,
+	  tbl.CreatedDate
+	  FROM (SELECT *,
+	  ROW_NUMBER() OVER (ORDER BY
+                       CASE WHEN @bIsAscending = 1  THEN 
+                          (CASE WHEN  @OrderTypeId=1 THEN tq.QueryName
+                         WHEN @OrderTypeId=2 THEN CONVERT(NVARCHAR(20),CONVERT(DATE,tq.CreatedDate),121)                    
+                          ELSE '' END) 
+                       END ASC, 
+                       CASE  WHEN @bIsAscending = 0 THEN 
+                       (CASE WHEN @OrderTypeId=1 THEN tq.QueryName
+                             WHEN @OrderTypeId=2 THEN CONVERT(NVARCHAR(20),CONVERT(DATE,tq.CreatedDate),121)                       
+                          ELSE '' END) 
+                       END DESC)[RowNum]
+	  FROM dbo.tblQuery tq WITH (NOLOCK)
+	  WHERE LEN(@SearchText) = 0 OR (LEN(@SearchText) > 0 AND tq.QueryName LIKE '%' + @SearchText + '%')) AS tbl
+       WHERE RowNum BETWEEN @FromIndex AND @ToIndex 
+	  */
+
+       IF(@bIsSearch = 1)
+       BEGIN
+		  --** set total search result count
+		  SET @RTotalCount = ISNULL(@RTotalCount,0)
+       END
+    END
+    ELSE -- advance search
+    BEGIN
+       /* advance search filters*/
+       IF(@bIsSearch = 1)
+       BEGIN
+		  --** set total search result count
+            SET @RTotalCount = ISNULL(@RTotalCount,0)
+       END
+    END
+END
+GO
+

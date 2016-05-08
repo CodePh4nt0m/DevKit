@@ -28,6 +28,13 @@ namespace DevKit.UI
             _envlist = new List<ServerModel>();
         }
 
+        public frmQueryWindow(string script)
+        {
+            InitializeComponent();
+            _envlist = new List<ServerModel>();
+            txtQuery.Text = script;
+        }
+
         private void LoadEnvironments()
         {
             EntityBusiness edata = new EntityBusiness();

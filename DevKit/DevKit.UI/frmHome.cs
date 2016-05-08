@@ -158,5 +158,12 @@ namespace DevKit.UI
             frm.MdiParent = this;
             frm.Show();
         }
+
+        private void smbtnBoost_Click(object sender, EventArgs e)
+        {
+            frmBoost frm = new frmBoost();
+            frm.MdiParent = this;
+            frm.Show();
+        }
     }
 }
