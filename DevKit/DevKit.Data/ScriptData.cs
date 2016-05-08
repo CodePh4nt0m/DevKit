@@ -107,10 +107,11 @@ namespace DevKit.Data
 
                     Scripter scripter = new Scripter(srv) { Options = scriptOptions };
 
-                    var gen = new StringBuilder();
+                    
                     
                     foreach (var t in tables)
                     {
+                        var gen = new StringBuilder();
                         var tbl = genDb.Tables[t.TableName, "dbo"];
                         var script = scripter.EnumScript(new SqlSmoObject[] { tbl });
                         foreach (var line in script)
